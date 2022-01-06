@@ -29,7 +29,3 @@ Route::get('/example', [App\Http\Controllers\HomeController::class, 'index1'])->
 
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 5d0b6bcb2275a62fc4f0ce883c49601f485e1e5c
