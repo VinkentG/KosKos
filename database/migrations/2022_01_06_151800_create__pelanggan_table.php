@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBangunanTable extends Migration
+class CreatePelangganTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateBangunanTable extends Migration
      */
     public function up()
     {
-        Schema::create('_bangunan', function (Blueprint $table) {
-            // $table->id()->nullable();
+        Schema::create('_pelanggan', function (Blueprint $table) {
+            // $table->id();
             $table->timestamps();
-            $table->increments('ID_Bangunan');
-            $table->foreign('UserID','UserID')->references("UserID")->on("users")->onDelete("cascade")->onUpdate("cascade");
+            $table->increments('ID_Pelanggan');
+            $table->foreign('ID_Kamar','ID_Kamar')->references("ID_Kamar")->on("_kamar")->onDelete("cascade")->onUpdate("cascade");
             $table->string('Nama');
-            $table->string('Alamat');
+            $table->integer('LamaSewa');
         });
     }
 
@@ -30,6 +30,6 @@ class CreateBangunanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_bangunan');
+        Schema::dropIfExists('_pelanggan');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMainDataTable extends Migration
+class CreateKamarTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateMainDataTable extends Migration
      */
     public function up()
     {
-        Schema::create('_main_data', function (Blueprint $table) {
-            $table->id();
+        Schema::create('_kamar', function (Blueprint $table) {
+            // $table->id();
             $table->timestamps();
-            $table->integer('Tahun');
+            $table->increments('ID_Kamar');
+            $table->foreign('ID_Bangunan','ID_Bangunan')->references("ID_Bangunan")->on("_bangunan")->onDelete("cascade")->onUpdate("cascade");
             $table->string('TipeKamar');
             $table->integer('JumlahKamar');
-            $table->integer('Biaya');
-            $table->integer('LamaSewa');
+            $table->integer('BiayaKamar');
+
         });
     }
 
@@ -31,6 +32,6 @@ class CreateMainDataTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_main_data');
+        Schema::dropIfExists('_kamar');
     }
 }

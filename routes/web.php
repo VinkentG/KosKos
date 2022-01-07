@@ -25,7 +25,7 @@ Route::get('/example', [App\Http\Controllers\HomeController::class, 'index1'])->
 // Route::get('/view', 'HomeController@index2');
 // Route::post('/add', 'HomeController@addbarang');
 
-// Auth::routes();
+Auth::routes();
 
 
 
