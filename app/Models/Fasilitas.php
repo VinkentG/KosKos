@@ -9,7 +9,7 @@ class Fasilitas extends Model
 {
     protected $table = '_fasilitas';
     protected $primarykey = 'ID_Fasilitas';
-    protected $fillable = ['ID_Fasilitas','ID_Bangunan','WIFI','Listrik','Pemeliharaan'];
+    protected $fillable = ['ID_Fasilitas','ID_Bangunan','WIFI','Listrik','Pemeliharaan','Tanggal','Pengeluaran'];
 
     // public function brand(){
     //     return $this->hasOne(' App\Models\Kelompok','brandid','brandid');

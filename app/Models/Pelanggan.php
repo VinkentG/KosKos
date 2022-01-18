@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pelanggan extends Model
 {
-    protected $table = '_kamar';
-    protected $primarykey = 'ID_Kamar';
-    protected $fillable = ['ID_Kamar','ID_Bangunan','TipeKamar','JumlahKamar','BiayaKamar'];
+    protected $table = '_pelanggan';
+    protected $primarykey = 'ID_Pelanggan';
+    protected $fillable = ['ID_Kamar','ID_Pelanggan','Nama','LamaSewa','TanggalMasuk'];
 
     // public function brand(){
     //     return $this->hasOne(' App\Models\Kelompok','brandid','brandid');
@@ -18,6 +18,5 @@ class Pelanggan extends Model
     // public function kelompok(){
     //     return $this->hasOne(' App\Models\Kelompok','kelompokid','kelompokid');
     // }
-    use HasFactory;
     use HasFactory;
 }

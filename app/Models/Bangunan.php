@@ -9,7 +9,7 @@ class Bangunan extends Model
 {
     protected $table = '_bangunan';
     protected $primarykey = 'ID_Bangunan';
-    protected $fillable = ['ID_Bangunan','UserID','Nama','Alamat'];
+    protected $fillable = ['ID_Bangunan','ID_Pemilik','Nama','Alamat'];
 
     // public function brand(){
     //     return $this->hasOne(' App\Models\Kelompok','brandid','brandid');

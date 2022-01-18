@@ -16,11 +16,14 @@ class CreateFasilitasTable extends Migration
         Schema::create('_fasilitas', function (Blueprint $table) {
             // $table->id();
             $table->timestamps();
-            $table->increments('ID_Fasilitas');
-            $table->foreign('ID_Bangunan','ID_Bangunan')->references("ID_Bangunan")->on("_bangunan")->onDelete("cascade")->onUpdate("cascade");
+            $table->string('ID_Fasilitas')->primary();
+            $table->string('ID_Bangunan');
+            $table->foreign('ID_Bangunan')->references("ID_Bangunan")->on("_bangunan")->onDelete("cascade")->onUpdate("cascade");
             $table->integer('WIFI');
             $table->integer('Listrik');
             $table->integer('Pemeliharaan');
+            $table->string('Pengeluaran');
+            $table->date('Tanggal');
         });
     }
 

@@ -69,22 +69,38 @@ body {
 .sparkboxes .box4 {
   background-image: linear-gradient( 135deg, #EE9AE5 10%, #5961F9 100%);
 }
+.h1{
+    color: white;
+}
+.text1{
+    margin-left: auto;
+}
+.text2{
+    font-weight: bold;
+    /* color: red; */
+}
 </style>
 
 @section('content')
-
 <body class="body1">
     <div id="wrapper">
       <div class="content-area">
         <div class="container-fluid">
-          <div class="text-right mt-3 mb-3 d-fixed">
-            {{-- <a
-              href="https://github.com/apexcharts/apexcharts.js/tree/master/samples/vanilla-js/dashboards/dark"
+         <div  class="text-right mt-3 mb-3 d-fixed">
+            <a
+              href="form"
               target="_blank"
               class="btn btn-outline-warning mr-2"
             >
-              <span class="btn-text">View Code</span>
-            </a> --}}
+              <span class="btn-text">Edit</span>
+            </a>
+            <a
+            href="form"
+            target="_blank"
+            class="btn btn-outline-warning mr-2"
+          >
+            <span class="btn-text">Add</span>
+          </a>
           </div>
           <div class="main">
             <div class="row sparkboxes mt-4">
@@ -129,7 +145,20 @@ body {
             <div class="row mt-4">
               <div class="col-md-5">
                 <div class="box shadow mt-4">
-                  <div id="radialBarBottom"></div>
+
+                    {{-- <div class="dis row-mt-1">
+                    <h1>Laba Bersih </h1>
+                        @if ($Laba == null || $Bulan == null || $Tahun == null)
+                          <svg class="gambar" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
+                            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
+                          </svg>
+                        @else
+                        <a class="text1">Edit</a>
+                        @endif
+                    </div> --}}
+
+                  <div id="chart"></div>
+
                 </div>
               </div>
               <div class="col-md-7">
@@ -138,6 +167,39 @@ body {
                 </div>
               </div>
             </div>
+
+            <div class="row mt-4">
+                <div class="col-md-5">
+                  <div class="box shadow mt-4">
+                    <table class="table table-dark table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Peran</th>
+                            <th scope="col">Gaji</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($pegawai as $p)
+                            <tr>
+                            <td>{{ $p->ID_Pegawai }}</td>
+                            <td>{{ $p->NamaPegawai }}</td>
+                            <td>{{ $p->Peran }}</td>
+                            <td>@currency( $p->Gaji )</td>
+                          </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                      <p>Total Gaji Pegawai: <h3 class="text2">RP.{{ $totalGaji }}</h3></p>
+                  </div>
+                </div>
+                <div class="col-md-7">
+                  <div class="box shadow mt-4">
+
+                  </div>
+                </div>
+              </div>
 
             <div class="row mt-4">
               <div class="col-md-5">
@@ -151,17 +213,18 @@ body {
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
     {{-- <script src="../../../../dist/apexcharts.js"></script> --}}
+
     <script>
         window.Apex = {
-  chart: {
+    chart: {
     foreColor: '#ccc',
     toolbar: {
       show: false
@@ -393,121 +456,109 @@ new ApexCharts(document.querySelector("#spark2"), spark2).render();
 new ApexCharts(document.querySelector("#spark3"), spark3).render();
 new ApexCharts(document.querySelector("#spark4"), spark4).render();
 
+ var optionsLine = {
+          series: [{
+          name: 'WIFI',
+          data: {!! json_encode($WIFI) !!},
+        }, {
+          name: 'Listrik',
+          data: {!! json_encode($Listrik) !!},
+        }, {
+          name: 'Pemeliharaan',
+          data: {!! json_encode($Pemeliharaan) !!},
+        },],
+          chart: {
+          type: 'bar',
+          height: 350,
+          stacked: true,
+          stackType: '100%'
+        },
+        plotOptions: {
+          bar: {
+            horizontal: true,
+          },
+        },
+        stroke: {
+          width: 1,
+          colors: ['#fff']
+        },
+        dataLabels: {
+          enabled: true,
+        },
+        title: {
+          text: 'Total Pengeluaran = RP.{!! ($Pengeluaran) !!}',
+        },
+        xaxis: {
+          categories: {!! json_encode($Bulan) !!},
+        },
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return val + "K"
+            }
+          }
+        },
+        fill: {
+          opacity: 1
 
-var optionsLine = {
-  chart: {
-    height: 328,
-    type: 'line',
-    zoom: {
-      enabled: false
-    },
-    dropShadow: {
-      enabled: true,
-      top: 3,
-      left: 2,
-      blur: 4,
-      opacity: 1,
-    }
-  },
-  stroke: {
-    curve: 'smooth',
-    width: 2
-  },
-  //colors: ["#3F51B5", '#2196F3'],
-  series: [{
-      name: "Music",
-      data: [1, 15, 26, 20, 33, 27]
-    },
-    {
-      name: "Photos",
-      data: [3, 33, 21, 42, 19, 32]
-    },
-    {
-      name: "Files",
-      data: [0, 39, 52, 11, 29, 43]
-    }
-  ],
-  title: {
-    text: 'Media',
-    align: 'left',
-    offsetY: 25,
-    offsetX: 20
-  },
-  subtitle: {
-    text: 'Statistics',
-    offsetY: 55,
-    offsetX: 20
-  },
-  markers: {
-    size: 6,
-    strokeWidth: 0,
-    hover: {
-      size: 9
-    }
-  },
-  grid: {
-    show: true,
-    padding: {
-      bottom: 0
-    }
-  },
-  labels: ['01/15/2002', '01/16/2002', '01/17/2002', '01/18/2002', '01/19/2002', '01/20/2002'],
-  xaxis: {
-    tooltip: {
-      enabled: false
-    }
-  },
-  legend: {
-    position: 'top',
-    horizontalAlign: 'right',
-    offsetY: -20
-  }
-}
+        },
+        legend: {
+          position: 'top',
+          horizontalAlign: 'left',
+          offsetX: 40
+        }
+        };
 
 var chartLine = new ApexCharts(document.querySelector('#line-adwords'), optionsLine);
 chartLine.render();
 
-var optionsCircle4 = {
-  chart: {
-    type: 'radialBar',
-    height: 350,
-    width: 380,
-  },
-  plotOptions: {
-    radialBar: {
-      size: undefined,
-      inverseOrder: true,
-      hollow: {
-        margin: 5,
-        size: '48%',
-        background: 'transparent',
+var options = {
+          series: {!! json_encode($Laba) !!},
+          labels: {!! json_encode($Bulan) !!},
+          chart: {
+          width: 491,
+          height: 380,
+          type: 'donut',
+        },
+        plotOptions: {
+          pie: {
+            startAngle: -90,
+            endAngle: 270,
+            // size: 50
+          }
+        },
+        dataLabels: {
+          enabled: true,
+        },
+        fill: {
+          type: 'gradient',
+        },
+        title: {
+          text: 'Total Laba Bersih = RP.{!! ($TotalLaba) !!}'
+        },
+        // legend: {
+        //   formatter: function(val, opts) {
+        //     return val + " - " + opts.w.globals.series[opts.seriesIndex]
+        //   }
+        // },
+        // title: {
+        //   text: 2019,
+        // },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: '30%'
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+        };
 
-      },
-      track: {
-        show: false,
-      },
-      startAngle: -180,
-      endAngle: 180
-
-    },
-  },
-  stroke: {
-    lineCap: 'round'
-  },
-  series: [71, 63, 77],
-  labels: ['June', 'May', 'April'],
-  legend: {
-    show: true,
-    floating: true,
-    position: 'right',
-    offsetX: 70,
-    offsetY: 240
-  },
-}
-
-var chartCircle4 = new ApexCharts(document.querySelector('#radialBarBottom'), optionsCircle4);
-chartCircle4.render();
-
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
 
 var optionsBar = {
   chart: {
@@ -522,17 +573,11 @@ var optionsBar = {
     },
   },
   series: [{
-    name: 'PRODUCT A',
-    data: [14, 25, 21, 17, 12, 13, 11, 19]
-  }, {
-    name: 'PRODUCT B',
-    data: [13, 23, 20, 8, 13, 27, 33, 12]
-  }, {
-    name: 'PRODUCT C',
-    data: [11, 17, 15, 15, 21, 14, 15, 13]
+    name: 'LabaBersih',
+    data:  [11, 15, 26, 20, 33, 27]
   }],
   xaxis: {
-    categories: ['2011 Q1', '2011 Q2', '2011 Q3', '2011 Q4', '2012 Q1', '2012 Q2', '2012 Q3', '2012 Q4'],
+    categories: ['unnu'],
   },
   fill: {
     opacity: 1
@@ -588,6 +633,7 @@ var chartArea = new ApexCharts(
 
 chartArea.render();
 </script>
+
 </body>
 
 @endsection

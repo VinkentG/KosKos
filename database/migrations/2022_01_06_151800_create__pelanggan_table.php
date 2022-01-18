@@ -16,10 +16,12 @@ class CreatePelangganTable extends Migration
         Schema::create('_pelanggan', function (Blueprint $table) {
             // $table->id();
             $table->timestamps();
-            $table->increments('ID_Pelanggan');
-            $table->foreign('ID_Kamar','ID_Kamar')->references("ID_Kamar")->on("_kamar")->onDelete("cascade")->onUpdate("cascade");
+            $table->string('ID_Pelanggan')->primary();
+            $table->string('ID_Kamar');
+            $table->foreign('ID_Kamar')->references("ID_Kamar")->on("_kamar")->onDelete("cascade")->onUpdate("cascade");
             $table->string('Nama');
             $table->integer('LamaSewa');
+            $table->date('TanggalMasuk');
         });
     }
 
