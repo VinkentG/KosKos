@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('Nav1')
+<li class="scroll-to-section"><a class="nav-link" href="/home">Home</a></li>
+@endsection
 <style>
     .body1 {
   background: #343E59;
@@ -86,23 +89,45 @@ body {
     <div id="wrapper">
       <div class="content-area">
         <div class="container-fluid">
+
+
+
+        <div  class="text-right mb-3 d-fixed">
+            <div class="btn-group dropleft  btn-outline-warning mr-2 btn-lg">
+                <a type="button" class="btn btn-secondary btn-outline-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <span class="btn-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-back" viewBox="0 0 16 16">
+                        <path d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2z"/>
+                      </svg>  {{ $tahunini }}</span>
+                </a>
+                <div class="dropdown-menu">
+                    @foreach ($Tahundrop as $a)
+                    <div class="col-md-auto">
+                        <a href="/example/{{ Auth::user()->ID_Pemilik }}/{{ $av }}/{{ $a }}">{{ $a }}</a>
+                      </div>
+                    @endforeach
+                </div>
+              </div>
+        </div>
+
          <div  class="text-right mt-3 mb-3 d-fixed">
             <a
               href="form"
               target="_blank"
-              class="btn btn-outline-warning mr-2"
-            >
+              class="btn btn-outline-warning mr-2">
               <span class="btn-text">Edit</span>
             </a>
-            <a
-            href="form"
-            target="_blank"
-            class="btn btn-outline-warning mr-2"
-          >
-            <span class="btn-text">Add</span>
+            <a class="btn btn-outline-warning mr-2" href="#">
+                <span class="btn-text" data-toggle="modal" data-target="#staticBackdrop">Add</span>
+            </a>
+          <a
+            href="/visual/{{ Auth::user()->ID_Pemilik }}"
+            class="btn btn-outline-warning mr-2">
+            <span class="btn-text">Back</span>
           </a>
           </div>
-          <div class="main">
+
+
+          {{-- <div class="main">
             <div class="row sparkboxes mt-4">
               <div class="col-md-3">
                 <div class="box box1">
@@ -140,7 +165,7 @@ body {
                   <div id="spark4"></div>
                 </div>
               </div>
-            </div>
+            </div> --}}
 
             <div class="row mt-4">
               <div class="col-md-5">
@@ -169,34 +194,9 @@ body {
             </div>
 
             <div class="row mt-4">
-                <div class="col-md-5">
+                <div class="col-md-12">
                   <div class="box shadow mt-4">
-                    <table class="table table-dark table-striped">
-                        <thead>
-                          <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Nama</th>
-                            <th scope="col">Peran</th>
-                            <th scope="col">Gaji</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($pegawai as $p)
-                            <tr>
-                            <td>{{ $p->ID_Pegawai }}</td>
-                            <td>{{ $p->NamaPegawai }}</td>
-                            <td>{{ $p->Peran }}</td>
-                            <td>@currency( $p->Gaji )</td>
-                          </tr>
-                          @endforeach
-                        </tbody>
-                      </table>
-                      <p>Total Gaji Pegawai: <h3 class="text2">RP.{{ $totalGaji }}</h3></p>
-                  </div>
-                </div>
-                <div class="col-md-7">
-                  <div class="box shadow mt-4">
-
+                    <div id="areachart"></div>
                   </div>
                 </div>
               </div>
@@ -209,7 +209,27 @@ body {
               </div>
               <div class="col-md-7">
                 <div class="box shadow mt-4">
-                  <div id="areachart"></div>
+                  <table class="table table-dark table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">Peran</th>
+                        <th scope="col">Gaji</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($pegawai as $p)
+                        <tr>
+                        <td>{{ $p->ID_Pegawai }}</td>
+                        <td>{{ $p->NamaPegawai }}</td>
+                        <td>{{ $p->Peran }}</td>
+                        <td>@currency( $p->Gaji )</td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                  <p class="text-white">Total Gaji Pegawai: <h3 class="text2 text-white">RP.{{ $totalGaji }}</h3></p>
                 </div>
               </div>
             </div>
@@ -573,11 +593,11 @@ var optionsBar = {
     },
   },
   series: [{
-    name: 'LabaBersih',
-    data:  [11, 15, 26, 20, 33, 27]
+    name: 'Terjual',
+    data:  {!! json_encode($value) !!},
   }],
   xaxis: {
-    categories: ['unnu'],
+    categories: {!! json_encode($key) !!},
   },
   fill: {
     opacity: 1
@@ -592,48 +612,230 @@ var chartBar = new ApexCharts(
 
 chartBar.render();
 
+// var optionsArea = {
+//   chart: {
+//     height: 380,
+//     type: 'area',
+//     stacked: false,
+//   },
+//   stroke: {
+//     curve: 'straight'
+//   },
+//   series: [{
+//       name: {!! json_encode($key) !!},
+//       data: {!! json_encode($value) !!},
+//     },
+//   ],
+//   xaxis: {
+//     categories: {!! json_encode($key) !!},
+//   },
+//   tooltip: {
+//     followCursor: true
+//   },
+//   fill: {
+//     opacity: 1,
+//   },
+
+// }
+
+// var chartArea = new ApexCharts(
+//   document.querySelector("#areachart"),
+//   optionsArea
+// );
+
+// chartArea.render();
+
 var optionsArea = {
-  chart: {
-    height: 380,
-    type: 'area',
-    stacked: false,
-  },
-  stroke: {
-    curve: 'straight'
-  },
-  series: [{
-      name: "Music",
-      data: [11, 15, 26, 20, 33, 27]
-    },
-    {
-      name: "Photos",
-      data: [32, 33, 21, 42, 19, 32]
-    },
-    {
-      name: "Files",
-      data: [20, 39, 52, 11, 29, 43]
-    }
-  ],
-  xaxis: {
-    categories: ['2011 Q1', '2011 Q2', '2011 Q3', '2011 Q4', '2012 Q1', '2012 Q2'],
-  },
-  tooltip: {
-    followCursor: true
-  },
-  fill: {
-    opacity: 1,
-  },
+          series: [{
+          name: 'Jumlah Transaksi',
+          data: {!! json_encode($countbulan) !!},
+        // }, {
+        //   name: 'series2',
+        //   data: [11, 32, 45, 32, 34, 52, 41]
+        // }, {
+        //   name: 'series2',
+        //   data: [11, 32, 45, 32, 34, 52, 41,12,44,45,45,45]
+        }],
+          chart: {
+          height: 350,
+          type: 'area'
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'smooth'
+        },
+        xaxis: {
+        //   type: 'datetime',
+          categories: {!! json_encode($Bulan) !!},
+        },
+        title: {
+          text: 'Total ada {!! ($r) !!} Transaksi dalam tahun {{ ($ta) }}'
+        },
+        tooltip: {
+          x: {
+            format: 'dd/MM/yy HH:mm'
+          },
+        },
+        };
 
-}
+        var chartArea = new ApexCharts(document.querySelector("#areachart"), optionsArea);
+        chartArea.render();
 
-var chartArea = new ApexCharts(
-  document.querySelector("#areachart"),
-  optionsArea
-);
-
-chartArea.render();
 </script>
 
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Add Data</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+            {{-- <form action="addData" method="post" enctype="multipart/form-data" onsubmit="return confirm('Are you sure want to add this?')">
+                @csrf
+                <thead>
+                <table class="table" id="table1">
+                <thead>
+                  <tr>
+                    <th>Nama</th>
+                    <th>Peran</th>
+                    <th>Gaji</th>
+                    <th>Gedung</th>
+                    <th><a href="javascript:void(0)" class="btn btn-success addRow">Add More</a></th>
+                    <th><a class="btn btn-success" id="addRow">Add More</a></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td contenteditable='true' name='NamaPegawai[]'></td>
+                    <td contenteditable='true' name='Peran[]'></td>
+                    <td contenteditable='true' name='Gaji[]'></td>
+                    <td contenteditable='true' name='Gedung[]'></td>
+                  </tr>
+                </tbody>
+              </table>
+            </form> --}}
+
+            <form action="addData" method="post" enctype="multipart/form-data" onsubmit="return confirm('Are you sure want to add this?')">
+                @csrf
+                <table id="emptbl" class="table table-bordered border-primar">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Name Pegawai</th>
+                            <th>Peran</th>
+                            <th>Branch</th>
+                            <th>Gaji</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="col0"><input type="text" class="form-control" name="NamaPegawai[]" placeholder="Enter your name" required></td>
+                            <td id="col1"><input type="text" class="form-control" name="Peran[]" placeholder="Enter your phone" required></td>
+                            <td id="col2">
+                                <select class="form-control" name="Gedung[]" id="dept" required>
+                                    <option selected disabled>-- Select --</option>
+                                    @foreach ($Bangunan as $b)
+                                    <option value="{{ $b->ID_Bangunan }}">{{ $b->Nama }}</option>
+                                    @endforeach
+                                </select>
+                            <td id="col3"><input type="text" class="form-control" name="Gaji[]" placeholder="Enter your Gaji" required></td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <br>
+                    <tr>
+                        <td><button type="button" class="btn btn-sm btn-info" onclick="addRows()">Add</button></td>
+                        <td><button type="button" class="btn btn-sm btn-danger" onclick="deleteRows()">Remore</button></td>
+                        <td><button type="submit" class="btn btn-sm btn-success">Save</button></td>
+                    </tr>
+                </table>
+            </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
+
+<script>
+// $('thead').on('click','.addRow'. function())
+// var tr = "<tr>"+
+//                 "<td><input type='text' name='NamaPegawai[]' class='form-control' /></td>"+
+//                 "<td><input type='text' name='Peran[]' class='form-control' /></td>"+
+//                 "<td><input type='text' name='Gaji[]' class='form-control' /></td>"+
+//                 "<td><input type='text' name='Gedung[]' class='form-control' /></td>"+
+//               "</tr>"+
+// $('tbody').apend(tr);
+   ////2
+// $(document).ready(function() {
+//     let baris = 1
+//     $(document).on('click', '#addRow', function () {
+//         baris = baris + 1
+//         var html = "<tr id= 'baris'" +baris+ ">"
+//             html += "<td contenteditable='true' class='NamaPegawai[]'></td>"
+//             html += "<td contenteditable='true' class='Perana[]'></td>"
+//             html += "<td contenteditable='true' class='Gaji[]'></td>"
+//             html += "<td contenteditable='true' class='Gedung[]'></td>"
+//             html += "</tr>"
+//             $('#table1').apend(html);
+//     })
+// })
+
+</script>
+
+{{-- <script>
+    function addRows()
+    {
+        var table = document.getElementById('emptbl');
+        var rowCount = table.rows.length;
+        var cellCount = table.rows[0].cells.length;
+        var row = table.insertRow(rowCount);
+        for(var i =0; i <= cellCount; i++)
+        {
+            var cell = 'cell'+i;
+            cell = row.insertCell(i);
+            var copycel = document.getElementById('col'+i).innerHTML;
+            cell.innerHTML=copycel;
+            if(i == 3)
+            {
+                var radioinput = document.getElementById('col2').getElementsByTagName('input');
+                for(var j = 0; j <= radioinput.length; j++)
+                {
+                    if(radioinput[j].type == 'radio')
+                    {
+                        var rownum = rowCount;
+                        radioinput[j].name = 'gender['+rownum+']';
+                    }
+                }
+            }
+        }
+    }
+
+    function deleteRows()
+    {
+        var table = document.getElementById('emptbl');
+        var rowCount = table.rows.length;
+        if(rowCount > '2')
+        {
+            var row = table.deleteRow(rowCount-1);
+            rowCount--;
+        }else{
+            alert('There should be atleast one row');
+        }
+    }
+</script> --}}
 
 @endsection

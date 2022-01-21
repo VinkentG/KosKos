@@ -20,6 +20,9 @@ class CreateBangunanTable extends Migration
             $table->string('ID_Bangunan')->primary();
             $table->unsignedBigInteger('ID_Pemilik');
             $table->foreign('ID_Pemilik')->references('ID_Pemilik')->on('users')->onDelete("cascade")->onUpdate("cascade");
+            // $table->id('ID_Bangunan')->primary();
+            // $table->unsignedBigInteger('ID_Pemilik');
+            // $table->foreign('ID_Pemilik')->references('ID_Pemilik')->on('users')->onDelete("cascade")->onUpdate("cascade");
             $table->string('Nama');
             $table->string('Alamat');
 

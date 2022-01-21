@@ -40,15 +40,22 @@
 </style>
 
 @section('content')
-{{-- <div class="container"> --}}
-{{-- <svg class="gambar" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
-    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
-  </svg> --}}
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="/js/validate.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.js"></script> --}}
+{{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> --}}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+
   <div  class="text-right mt-1 mb-1 d-fixed">
-    <!-- Button trigger modal -->
-    <a class="btn btn-outline-warning mr-5" href="#">
-      <span class="btn-text" data-toggle="modal" data-target="#staticBackdrop">Add Data</span>
+    <a class="btn btn-outline-warning mr-2" href="#">
+      <span class="btn-text" data-toggle="modal" data-target="#staticBackdrop2">Add Employee</span>
     </a>
+    <a class="btn btn-outline-warning mr-5" href="#">
+        <span class="btn-text" data-toggle="modal" data-target="#staticBackdrop">Add Branch</span>
+      </a>
   </div>
 
   <div class="container1">
@@ -60,7 +67,7 @@
               <div class="card-body">
                 <h5 class="card-title">{{ $b->Nama }}</h5>
                 <p class="card-text">{{ $b->Alamat }}</p>
-                <a type="button" class="btn btn-primary btn-sm shadow" href="/example/{{ Auth::user()->ID_Pemilik }}/{{ $b->ID_Bangunan }}">View</a/>
+                <a type="button" class="btn btn-primary btn-sm shadow" href="/example/{{ Auth::user()->ID_Pemilik }}/{{ $b->ID_Bangunan }}/{{ $tahunini }}">View</a/>
                 </div>
             </div>
             </div>
@@ -69,72 +76,330 @@
   </div>
 
   <!-- Modal -->
+  {{-- 1 --}}
   <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+          <h5 class="modal-title" id="staticBackdropLabel">Add Building/Branch</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
 
-            <form class="row g-3">
+            <form class="row g-3" action="addBangunan" method="post" enctype="multipart/form-data" onsubmit="return confirm('Are you sure want to add this?')">
                 @csrf
-                <div class="col-md-6">
-                  <label for="inputEmail4" class="form-label">Email</label>
-                  <input type="email" class="form-control" id="inputEmail4">
-                </div>
-                <div class="col-md-6">
-                  <label for="inputPassword4" class="form-label">Password</label>
-                  <input type="password" class="form-control" id="inputPassword4">
-                </div>
-                <div class="col-12">
-                  <label for="inputAddress" class="form-label">Address</label>
-                  <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                </div>
-                <div class="col-12">
-                  <label for="inputAddress2" class="form-label">Address 2</label>
-                  <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-                </div>
-                <div class="col-md-6">
-                  <label for="inputCity" class="form-label">City</label>
-                  <input type="text" class="form-control" id="inputCity">
-                </div>
-                <div class="col-md-4">
-                  <label for="inputState" class="form-label">State</label>
-                  <select id="inputState" class="form-select">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                  </select>
-                </div>
-                <div class="col-md-2">
-                  <label for="inputZip" class="form-label">Zip</label>
-                  <input type="text" class="form-control" id="inputZip">
-                </div>
-                <div class="col-12">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck">
-                      Check me out
-                    </label>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <button type="submit" class="btn btn-primary">Sign in</button>
-                </div>
-              </form>
-
+                  <table class="table table-bordered border-primar" id="dynamic_field">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Name Building/Branch</th>
+                            <th>Address</th>
+                        </tr>
+                    </thead>
+                    <tbody id="1col">
+                    <tr>
+                        <td><input id="col0" type="text" name="NamaBangunan" placeholder="Masukan nama branch" class="form-control name_list" /></td>
+                        <td><input id="col1" type="text" name="Alamat" placeholder="Masukan alamat" class="form-control name_list" /></td>
+                        {{-- <td><button type="button" name="add" id="add" class="btn btn-success">Add More</button></td> --}}
+                    </tr>
+                </tbody>
+                </table>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Understood</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
         </div>
       </div>
     </div>
   </div>
 
+  {{-- 2 --}}
+  <div class="modal fade" id="staticBackdrop2" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Add Employee</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+            {{-- <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Alamat</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    @foreach ($bangunan as $p)
+                    <tr>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $p->Nama }}</td>
+                    <td>{{ $p->Alamat }}</td>
+                    <td><button type="submit" class="btn btn-warning">Edit</button>
+                        <form class="d-inline" action="deleteBangunan/{{$p->ID_Bangunan}}" method="post" onsubmit="return confirm('Are you sure to delete this?')">
+                            @method('delete')
+                            @csrf
+                            <a href="#">
+                            <button type="submit" class="btn btn-danger">Delete</button></a></td>
+                        </form>
+                  </tr>
+                  @endforeach
+                </tbody>
+              </table> --}}
+              @if(Session::has('success'))
+              <div class="alert alert-success">
+                  {{Session::get('success')}}
+              </div>
+              @endif
+              <form id="validate" action="/addData" method="POST" onsubmit="return confirm('Are you sure want to add this?')">
+                {{csrf_field()}}
+                <table id="emptbl" class="table table-bordered border-primar">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Name Pegawai</th>
+                            <th>Peran</th>
+                            <th>Gaji</th>
+                            <th>Branch</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="1col">
+                        <tr>
+                            <td id="col0"><input type="text" class="form-control" name="NamaPegawai[]" placeholder="Enter nama pegawai" required></td>
+                            <td id="col1"><input type="text" class="form-control" name="Peran[]" placeholder="Enter peran" required></td>
+                            <td id="col2"><input type="text" class="form-control" name="Gaji[]" placeholder="Enter gaji" required></td>
+                            <td id="col3">
+                                <select class="form-control" name="Gedung[]" id="dept" required>
+                                    <option selected disabled>-- Select --</option>
+                                    @foreach ($bangunan as $b)
+                                    <option value="{{ $b->ID_Bangunan }}">{{ $b->Nama }}</option>
+                                    @endforeach
+                                </select>
+                                <td><button type="button" class="btn btn-sm btn-success addRow">Add</button></td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                {{-- <table>
+                    <br>
+                    <tr>
+                        <td><button type="button" class="btn btn-sm btn-danger" onclick="deleteRows()">Remore</button></td>
+                        <th><a href="#" class="addRow"><i class="glyphicon glyphicon-plus"></i></a></th>
+                        <td><a href="#" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i></a></td>
+                        <td><button type="submit" class="btn btn-sm btn-success">Save</button></td>
+                    </tr>
+                </table> --}}
 
 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" name="" value="Submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+
+  {{-- <script>
+    function addRows()
+    {
+        var table = document.getElementById('emptbl');
+        var rowCount = table.rows.length;
+        var cellCount = table.rows[0].cells.length;
+        var row = table.insertRow(rowCount);
+        for(var i =0; i <= cellCount; i++)
+        {
+            var cell = 'cell'+i;
+            cell = row.insertCell(i);
+            var copycel = document.getElementById('col'+i).innerHTML;
+            cell.innerHTML=copycel;
+            if(i == 2)
+            {
+                var radioinput = document.getElementById('col2').getElementsByTagName('input');
+                for(var j = 0; j <= radioinput.length; j++)
+                {
+                    if(radioinput[j].type == 'radio')
+                    {
+                        var rownum = rowCount;
+                        radioinput[j].name = 'gender['+rownum+']';
+                    }
+                }
+            }
+        }
+    }
+
+    function deleteRows()
+    {
+        var table = document.getElementById('emptbl');
+        var rowCount = table.rows.length;
+        if(rowCount > '2')
+        {
+            var row = table.deleteRow(rowCount-1);
+            rowCount--;
+        }else{
+            alert('There should be atleast one row');
+        }
+    }
+</script> --}}
+
+<script type="text/javascript">
+    // $('tbody').delegate('.quantity,.budget','keyup',function(){
+    //     var tr=$(this).parent().parent();
+    //     var quantity=tr.find('.quantity').val();
+    //     var budget=tr.find('.budget').val();
+    //     var amount=(quantity*budget);
+    //     tr.find('.amount').val(amount);
+    //     total();
+    // });
+    // function total(){
+    //     var total=0;
+    //     $('.amount').each(function(i,e){
+    //         var amount=$(this).val()-0;
+    //     total +=amount;
+    // });
+    // $('.total').html(total+".00 tk");
+    // }
+    $('.addRow').on('click',function(){
+        addRow();
+    });
+    function addRow()
+    {
+        var tr='<tr>'+
+            '<td id="col0"><input type="text" class="form-control" name="NamaPegawai[]" placeholder="Enter nama pegawai" required></td>'+
+            '<td id="col1"><input type="tel" class="form-control" name="Peran[]" placeholder="Enter peran" required></td>'+
+            '<td id="col2"><input type="text" class="form-control" name="Gaji[]" placeholder="Enter gaji" required></td>'+
+            '<td id="col3">'+
+                '<select class="form-control" name="Gedung[]" id="dept" required>'+
+                       '<option selected disabled>-- Select --</option>'+
+                        '@foreach ($bangunan as $b)'+
+                        '<option value="{{ $b->ID_Bangunan }}">{{ $b->Nama }}</option>'+
+                        '@endforeach'+
+                '</select>'+
+            '</td>'+
+            // '<td><button type="button" class="btn btn-sm btn-danger text-danger remove">Remove</button></td>'+
+            '<td><a href="#" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i></a></td>'+
+        '</tr>';
+        $('tbody').append(tr);
+    };
+    $('.remove').live('click',function(){
+        var last=$('tbody tr').length;
+        if(last==1){
+            alert("you can not remove last row");
+        }
+        else{
+             $(this).parent().parent().remove();
+        }
+
+    });
+</script>
+
+
+{{-- Script --}}
+{{-- <script type="text/javascript">
+
+    $(document).ready(function(){
+
+      var postURL = "<?php echo url('addmore'); ?>";
+
+      var i=1;
+
+      $('#add').click(function(){
+
+           i++;
+
+           $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="text" name="NamaBangunan" placeholder="Masukan Nama Bangunan" class="form-control name_list" /></td><td><input type="text" name="Alamat" placeholder="Masukan Alamat" class="form-control name_list" /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
+
+      });
+
+
+
+      $(document).on('click', '.btn_remove', function(){
+
+           var button_id = $(this).attr("id");
+
+           $('#row'+button_id+'').remove();
+
+      });
+
+      $.ajaxSetup({
+
+          headers: {
+
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            // 'X-CSRF-TOKEN': $('meta[Alamat="csrf-token"]').attr('content')
+          }
+
+      });
+
+      $('#submit').click(function(){
+
+           $.ajax({
+
+                url:postURL,
+
+                method:"POST",
+
+                data:$('#addBangunan').serialize(),
+
+                type:'json',
+
+                success:function(data)
+
+                {
+
+                    if(data.error){
+
+                        printErrorMsg(data.error);
+
+                    }else{
+
+                        i=1;
+
+                        $('.dynamic-added').remove();
+
+                        $('#addBangunan')[0].reset();
+
+                        $(".print-success-msg").find("ul").html('');
+
+                        $(".print-success-msg").css('display','block');
+
+                        $(".print-error-msg").css('display','none');
+
+                        $(".print-success-msg").find("ul").append('<li>Record Inserted Successfully.</li>');
+
+                    }
+
+                }
+
+           });
+
+      });
+
+      function printErrorMsg (msg) {
+
+         $(".print-error-msg").find("ul").html('');
+
+         $(".print-error-msg").css('display','block');
+
+         $(".print-success-msg").css('display','none');
+
+         $.each( msg, function( key, value ) {
+
+            $(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+
+         });
+
+      }
+
+    });
+
+</script> --}}
 @endsection

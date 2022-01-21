@@ -19,10 +19,9 @@ class CreatePelangganTable extends Migration
             $table->string('ID_Pelanggan')->primary();
             $table->string('ID_Kamar');
             $table->foreign('ID_Kamar')->references("ID_Kamar")->on("_kamar")->onDelete("cascade")->onUpdate("cascade");
-            $table->string('Nama');
+            $table->string('NamaPelanggan');
             $table->integer('LamaSewa');
-            $table->date('TanggalMasuk');
-        });
+       });
     }
 
     /**
