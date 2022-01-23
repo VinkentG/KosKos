@@ -453,3 +453,19 @@
 
 </script> --}}
 @endsection
+@section('foot')
+<footer>
+    <div class="footer-content" id="contact">
+        <h3>VizKost Developer</h3>
+        <p>Raj Template is a blog website where you will find great tutorials on web design and development. Here each tutorial is beautifully described step by step with the required source code.</p>
+        <ul class="socials">
+            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+        </ul>
+    </div>
+    <div class="footer-bottom">
+        <p>copyright &copy; <a href="#">VizKost Developer</a>  </p>
+    </div>
+
+</footer>
+@endsection

@@ -26,12 +26,12 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="alamat" class="col-md-4 col-form-label text-md-right">{{ __('Alamat') }}</label>
+                            <label for="TempatTanggalLahir" class="col-md-4 col-form-label text-md-right">{{ __('TempatTanggalLahir') }}</label>
 
                             <div class="col-md-6">
-                                <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" autofocus>
+                                <input id="TempatTanggalLahir" type="date" class="form-control @error('TempatTanggalLahir') is-invalid @enderror" name="TempatTanggalLahir" value="{{ old('TempatTanggalLahir') }}" required autocomplete="alamat" autofocus>
 
-                                @error('alamat')
+                                @error('TempatTanggalLahir')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

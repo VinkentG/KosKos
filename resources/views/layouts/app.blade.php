@@ -181,7 +181,8 @@ display: block;
 <body >
     <div id="app">
 
-        <nav class="navbar navbar-expand-md fixed-top navbar-light shadow-m">
+        {{-- <nav class="navbar navbar-expand-md fixed-top navbar-light shadow-m"> --}}
+            <nav class="navbar navbar-expand-md navbar-light shadow-m">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
                     <h1>VizKost</h1>
@@ -250,20 +251,8 @@ display: block;
             @yield('content')
         </main>
     </div>
-    <footer>
-        <div class="footer-content" id="contact">
-            <h3>VizKost Developer</h3>
-            <p>Raj Template is a blog website where you will find great tutorials on web design and development. Here each tutorial is beautifully described step by step with the required source code.</p>
-            <ul class="socials">
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-            </ul>
-        </div>
-        <div class="footer-bottom">
-            <p>copyright &copy; <a href="#">VizKost Developer</a>  </p>
-        </div>
+    @yield('foot')
 
-    </footer>
 </body>
 
 </html>
