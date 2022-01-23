@@ -9,7 +9,7 @@ class Pegawai extends Model
 {
     protected $table = '_pegawai';
     protected $primarykey = 'ID_Pegawai';
-    protected $fillable = ['ID_Pegawai','ID_Bangunan','NamaPegawai','Peran','Gaji'];
+    protected $fillable = ['ID_Pegawai','ID_Bangunan','NamaPegawai','Alamat','Peran','Gaji'];
 
     // public function brand(){
     //     return $this->hasOne(' App\Models\Kelompok','brandid','brandid');
@@ -18,4 +18,5 @@ class Pegawai extends Model
     // public function kelompok(){
     //     return $this->hasOne(' App\Models\Kelompok','kelompokid','kelompokid');
     // }
+    use HasFactory;
 }

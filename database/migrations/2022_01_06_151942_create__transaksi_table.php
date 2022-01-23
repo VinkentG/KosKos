@@ -26,8 +26,9 @@ class CreateTransaksiTable extends Migration
             $table->foreign('ID_Pelanggan')->references("ID_Pelanggan")->on("_pelanggan")->onDelete("cascade")->onUpdate("cascade");
             $table->foreign('ID_Pemilik')->references("ID_Pemilik")->on("users")->onDelete("cascade")->onUpdate("cascade");
             $table->date('Tanggal');
-            $table->integer('Nominal');
-            $table->string('Status');
+            $table->integer('Nominal')->nullable();
+            $table->string('Status')->nullable();
+            $table->integer('LamaSewa')->nullable();
         });
     }
 

@@ -20,8 +20,10 @@ class CreatePegawaiTable extends Migration
             $table->string('ID_Bangunan');
             $table->foreign('ID_Bangunan')->references("ID_Bangunan")->on("_bangunan")->onDelete("cascade")->onUpdate("cascade");
             $table->string('NamaPegawai');
+            $table->string('Alamat');
             $table->string('Peran');
             $table->integer('Gaji');
+
         });
     }
 

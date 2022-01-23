@@ -249,6 +249,7 @@ class DatabaseSeeder extends Seeder
             'NamaPegawai' => ("Ahmad"),
             'Gaji' => ("1000000"),
             'Peran' => ("Satpam"),
+            'Alamat' => ("Satpam"),
             ],
             [
             'ID_Pegawai' => ("P0002"),
@@ -256,6 +257,7 @@ class DatabaseSeeder extends Seeder
             'NamaPegawai' => ("Susi"),
             'Gaji' => ("2000000"),
             'Peran' => ("Satpam"),
+            'Alamat' => ("Satpam"),
             ],
             [
             'ID_Pegawai' => ("P0003"),
@@ -263,6 +265,7 @@ class DatabaseSeeder extends Seeder
             'NamaPegawai' => ("Mirna"),
             'Gaji' => ("3000000"),
             'Peran' => ("Satpam"),
+            'Alamat' => ("Satpam"),
             ],
         ]);
         \DB::table('_pelanggan')->insert([
@@ -270,31 +273,31 @@ class DatabaseSeeder extends Seeder
             'ID_Pelanggan' => ("C0001"),
             'ID_Kamar' => ("K0001"),
             'NamaPelanggan' => ("Alex"),
-            'LamaSewa' => ("10"),
+            'Notelp' => ("932839"),
             ],
              [
             'ID_Pelanggan' => ("C0002"),
             'ID_Kamar' => ("K0002"),
             'NamaPelanggan' => ("Ben"),
-            'LamaSewa' => ("1"),
+            'Notelp' => ("932839"),
             ],
              [
             'ID_Pelanggan' => ("C0003"),
             'ID_Kamar' => ("K0003"),
             'NamaPelanggan' => ("Vivi"),
-            'LamaSewa' => ("3"),
+            'Notelp' => ("932839"),
             ],
              [
             'ID_Pelanggan' => ("C0004"),
             'ID_Kamar' => ("K0001"),
             'NamaPelanggan' => ("Sa"),
-            'LamaSewa' => ("4"),
+            'Notelp' => ("932839"),
              ],
             [
             'ID_Pelanggan' => ("C0005"),
             'ID_Kamar' => ("K0002"),
             'NamaPelanggan' => ("Mimi"),
-            'LamaSewa' => ("1"),
+            'Notelp' => ("932839"),
             ],
         ]);
         \DB::table('_transaksi')->insert([
@@ -307,6 +310,7 @@ class DatabaseSeeder extends Seeder
             'Nominal' => ("300000"),
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-01-01"),
+            'LamaSewa' => ("1"),
             ],
             [
             'ID_Transaksi' => ("T0002"),
@@ -317,6 +321,7 @@ class DatabaseSeeder extends Seeder
             'Nominal' => ("20000000"),
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-01-01"),
+            'LamaSewa' => ("2"),
             ],
              [
             'ID_Transaksi' => ("T0003"),
@@ -327,6 +332,7 @@ class DatabaseSeeder extends Seeder
             'Nominal' => ("300000"),
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-01-01"),
+            'LamaSewa' => ("2"),
             ],
             [
             'ID_Transaksi' => ("T0004"),
@@ -337,6 +343,7 @@ class DatabaseSeeder extends Seeder
             'Nominal' => ("20000000"),
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-02-01"),
+            'LamaSewa' => ("2"),
             ],
              [
             'ID_Transaksi' => ("T0005"),
@@ -347,6 +354,7 @@ class DatabaseSeeder extends Seeder
             'Nominal' => ("300000"),
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-02-01"),
+            'LamaSewa' => ("2"),
             ],
             [
             'ID_Transaksi' => ("T0006"),
@@ -357,6 +365,7 @@ class DatabaseSeeder extends Seeder
             'Nominal' => ("20000000"),
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-03-01"),
+            'LamaSewa' => ("2"),
             ],
              [
             'ID_Transaksi' => ("T0007"),
@@ -367,6 +376,7 @@ class DatabaseSeeder extends Seeder
             'Nominal' => ("300000"),
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-03-01"),
+            'LamaSewa' => ("2"),
             ],
             [
             'ID_Transaksi' => ("T0008"),
@@ -377,6 +387,7 @@ class DatabaseSeeder extends Seeder
             'Nominal' => ("20000000"),
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-03-01"),
+            'LamaSewa' => ("2"),
             ],
         ]);
         \DB::table('_penghasilan')->insert([

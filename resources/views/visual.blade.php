@@ -1,9 +1,8 @@
 @extends('layouts.app')
 @section('Nav1')
 <li class="scroll-to-section"><a class="nav-link" href="/home">Home</a></li>
-<li class="scroll-to-section"><a class="nav-link" href="/visual">Visualization</a></li>
-<li class="scroll-to-section"><a class="nav-link" href="#login">About Us</a></li>
-<li class="scroll-to-section"><a class="nav-link" href="#login">Contact</a></li>
+<li class="scroll-to-section"><a class="nav-link" href="/visual/{{ Auth::user()->ID_Pemilik }}">Visualization</a></li>
+<li class="scroll-to-section"><a class="nav-link" href="#contact">Contact</a></li>
 @endsection
 <style>
 .gambar{
@@ -40,21 +39,13 @@
 </style>
 
 @section('content')
-{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="/js/validate.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.js"></script> --}}
-{{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> --}}
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 
   <div  class="text-right mt-1 mb-1 d-fixed">
-    <a class="btn btn-outline-warning mr-2" href="#">
-      <span class="btn-text" data-toggle="modal" data-target="#staticBackdrop2">Add Employee</span>
-    </a>
-    <a class="btn btn-outline-warning mr-5" href="#">
-        <span class="btn-text" data-toggle="modal" data-target="#staticBackdrop">Add Branch</span>
+    <a class="btn btn-outline-warning mr-2">
+        <span class="btn-text" data-toggle="modal" data-target="#edit">Edit</span>
+      </a>
+      <a class="btn btn-outline-warning mr-5">
+        <span class="btn-text" data-toggle="modal" data-target="#add">Add Data</span>
       </a>
   </div>
 
@@ -76,8 +67,91 @@
   </div>
 
   <!-- Modal -->
+  {{-- view --}}
+  <div class="modal fade" id="edit" data-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">View/Edit</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+                  <table class="table table-bordered border-primar">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>No</th>
+                            <th>Name Building/Branch</th>
+                            <th>Address</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="1col">
+                        @foreach ($bangunan as $b)
+                        <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $b->Nama }}</td>
+                        <td>{{ $b->Alamat }}</td>
+                        <td>
+
+                            <a type="button" href="/editBangunan/{{$b->ID_Bangunan}}" class="btn btn-primary btn-sm">Edit</a>
+
+                            <form action="deleteBangunan/{{$b->ID_Bangunan}}" method="post" onsubmit="return confirm('Are you sure to delete this?')">
+                                @method('delete')
+                                @csrf
+                                <button class="btn btn-danger btn-sm ">Delete</button>
+                            </form>
+                        </td>
+                        </tr>
+                        @endforeach
+                </tbody>
+                </table>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{-- add --}}
+  <div class="modal fade" id="add" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">What want to add</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+            <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <a class="btn btn-outline-warning mr-2 shadow" href="#">
+                    <span class="btn-text" data-toggle="modal" data-target="#employee">Add Employee</span>
+                    </a></div>
+                  <div class="col">
+                      <a class="btn btn-outline-warning shadow" href="#">
+                    <span class="btn-text" data-toggle="modal" data-target="#branch">Add Branch</span>
+                  </a></div>
+              </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   {{-- 1 --}}
-  <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal fade" id="branch" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
@@ -116,7 +190,7 @@
   </div>
 
   {{-- 2 --}}
-  <div class="modal fade" id="staticBackdrop2" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal fade" id="employee" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
@@ -127,37 +201,7 @@
         </div>
         <div class="modal-body">
 
-            {{-- <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nama</th>
-                    <th scope="col">Alamat</th>
-                    <th scope="col">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    @foreach ($bangunan as $p)
-                    <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $p->Nama }}</td>
-                    <td>{{ $p->Alamat }}</td>
-                    <td><button type="submit" class="btn btn-warning">Edit</button>
-                        <form class="d-inline" action="deleteBangunan/{{$p->ID_Bangunan}}" method="post" onsubmit="return confirm('Are you sure to delete this?')">
-                            @method('delete')
-                            @csrf
-                            <a href="#">
-                            <button type="submit" class="btn btn-danger">Delete</button></a></td>
-                        </form>
-                  </tr>
-                  @endforeach
-                </tbody>
-              </table> --}}
-              @if(Session::has('success'))
-              <div class="alert alert-success">
-                  {{Session::get('success')}}
-              </div>
-              @endif
+
               <form id="validate" action="/addData" method="POST" onsubmit="return confirm('Are you sure want to add this?')">
                 {{csrf_field()}}
                 <table id="emptbl" class="table table-bordered border-primar">
@@ -166,17 +210,19 @@
                             <th>Name Pegawai</th>
                             <th>Peran</th>
                             <th>Gaji</th>
+                            <th>Alamat</th>
                             <th>Branch</th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody id="1col">
+                    <tbody>
                         <tr>
-                            <td id="col0"><input type="text" class="form-control" name="NamaPegawai[]" placeholder="Enter nama pegawai" required></td>
-                            <td id="col1"><input type="text" class="form-control" name="Peran[]" placeholder="Enter peran" required></td>
-                            <td id="col2"><input type="text" class="form-control" name="Gaji[]" placeholder="Enter gaji" required></td>
-                            <td id="col3">
-                                <select class="form-control" name="Gedung[]" id="dept" required>
+                            <td><input type="text" class="form-control" name="NamaPegawai[]" placeholder="Enter nama pegawai" required></td>
+                            <td><input type="text" class="form-control" name="Peran[]" placeholder="Enter peran" required></td>
+                            <td><input type="text" class="form-control" name="Gaji[]" placeholder="Enter gaji" required></td>
+                            <td><input type="text" class="form-control" name="Alamat[]" placeholder="Enter alamat" required></td>
+                            <td>
+                                <select class="form-control" name="Gedung[]" required>
                                     <option selected disabled>-- Select --</option>
                                     @foreach ($bangunan as $b)
                                     <option value="{{ $b->ID_Bangunan }}">{{ $b->Nama }}</option>
@@ -187,16 +233,6 @@
                         </tr>
                     </tbody>
                 </table>
-                {{-- <table>
-                    <br>
-                    <tr>
-                        <td><button type="button" class="btn btn-sm btn-danger" onclick="deleteRows()">Remore</button></td>
-                        <th><a href="#" class="addRow"><i class="glyphicon glyphicon-plus"></i></a></th>
-                        <td><a href="#" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i></a></td>
-                        <td><button type="submit" class="btn btn-sm btn-success">Save</button></td>
-                    </tr>
-                </table> --}}
-
 
         </div>
         <div class="modal-footer">
@@ -208,76 +244,37 @@
     </div>
   </div>
 
-  {{-- <script>
-    function addRows()
-    {
-        var table = document.getElementById('emptbl');
-        var rowCount = table.rows.length;
-        var cellCount = table.rows[0].cells.length;
-        var row = table.insertRow(rowCount);
-        for(var i =0; i <= cellCount; i++)
-        {
-            var cell = 'cell'+i;
-            cell = row.insertCell(i);
-            var copycel = document.getElementById('col'+i).innerHTML;
-            cell.innerHTML=copycel;
-            if(i == 2)
-            {
-                var radioinput = document.getElementById('col2').getElementsByTagName('input');
-                for(var j = 0; j <= radioinput.length; j++)
-                {
-                    if(radioinput[j].type == 'radio')
-                    {
-                        var rownum = rowCount;
-                        radioinput[j].name = 'gender['+rownum+']';
-                    }
-                }
-            }
-        }
-    }
-
-    function deleteRows()
-    {
-        var table = document.getElementById('emptbl');
-        var rowCount = table.rows.length;
-        if(rowCount > '2')
-        {
-            var row = table.deleteRow(rowCount-1);
-            rowCount--;
-        }else{
-            alert('There should be atleast one row');
-        }
-    }
-</script> --}}
-
 <script type="text/javascript">
-    // $('tbody').delegate('.quantity,.budget','keyup',function(){
-    //     var tr=$(this).parent().parent();
-    //     var quantity=tr.find('.quantity').val();
-    //     var budget=tr.find('.budget').val();
-    //     var amount=(quantity*budget);
-    //     tr.find('.amount').val(amount);
-    //     total();
-    // });
-    // function total(){
-    //     var total=0;
-    //     $('.amount').each(function(i,e){
-    //         var amount=$(this).val()-0;
-    //     total +=amount;
-    // });
-    // $('.total').html(total+".00 tk");
-    // }
+    $('tbody').delegate('.quantity,.budget','keyup',function(){
+        var tr=$(this).parent().parent();
+        var quantity=tr.find('.quantity').val();
+        var budget=tr.find('.budget').val();
+        var amount=(quantity*budget);
+        tr.find('.amount').val(amount);
+        total();
+    });
+    function total(){
+        var total=0;
+        $('.amount').each(function(i,e){
+            var amount=$(this).val()-0;
+        total +=amount;
+    });
+    $('.total').html(total+".00 tk");
+    }
+
+    //add pegawai
     $('.addRow').on('click',function(){
         addRow();
     });
     function addRow()
     {
         var tr='<tr>'+
-            '<td id="col0"><input type="text" class="form-control" name="NamaPegawai[]" placeholder="Enter nama pegawai" required></td>'+
-            '<td id="col1"><input type="tel" class="form-control" name="Peran[]" placeholder="Enter peran" required></td>'+
-            '<td id="col2"><input type="text" class="form-control" name="Gaji[]" placeholder="Enter gaji" required></td>'+
-            '<td id="col3">'+
-                '<select class="form-control" name="Gedung[]" id="dept" required>'+
+            '<td><input type="text" class="form-control" name="NamaPegawai[]" placeholder="Enter nama pegawai" required></td>'+
+            '<td><input type="tel" class="form-control" name="Peran[]" placeholder="Enter peran" required></td>'+
+            '<td><input type="text" class="form-control" name="Gaji[]" placeholder="Enter gaji" required></td>'+
+            '<td><input type="text" class="form-control" name="Alamat[]" placeholder="Enter alamat" required></td>'+
+            '<td>'+
+                '<select class="form-control" name="Gedung[]" required>'+
                        '<option selected disabled>-- Select --</option>'+
                         '@foreach ($bangunan as $b)'+
                         '<option value="{{ $b->ID_Bangunan }}">{{ $b->Nama }}</option>'+
@@ -289,6 +286,60 @@
         '</tr>';
         $('tbody').append(tr);
     };
+    // addTransaksi
+    $('.addRowTran').on('click',function(){
+        addRowTran();
+    });
+    function addRowTran()
+    {
+        var tr='<tr>'+
+            '<td id="col0">'+
+                                '<select class="form-control" name="Gedung[]" id="dept" required>'+
+                                    '<option selected disabled>-- Select --</option>'+
+                                    '@foreach ($bangunan as $b)'+
+                                    '<option value="{{ $b->ID_Bangunan }}">{{ $b->Nama }}</option>'+
+                                    '@endforeach'+
+                                '</select>'+
+                            '</td>'+
+                            '<td id="col1">'+
+                                '<select class="form-control" name="Tipe[]" id="dept" required>'+
+                                    '<option selected disabled>-- Select --</option>'+
+                                   '@foreach ($bangunan as $b)'+
+                                    '<option value="{{ $b->ID_Bangunan }}">{{ $b->Nama }}</option>'+
+                                    '@endforeach'+
+                                '</select>'+
+                            '</td>'+
+                            '<td id="col2"><input type="text" class="form-control" name="Nama[]" placeholder="Enter nama pelanggan" required></td>'+
+                            '<td id="col1"><input type="date" class="form-control" name="Date[]" placeholder="Enter tanggal masuk" required></td>'+
+                            '<td id="col2"><input type="text" class="form-control" name="Long[]" placeholder="Enter lama sewa" required></td>'+
+            '<td><a href="#" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i></a></td>'+
+        '</tr>';
+        $('tbody').append(tr);
+    };
+    // addmaintanence
+    $('.addRowMain').on('click',function(){
+        addRowMain();
+    });
+    function addRowMain()
+    {
+        var tr='<tr>'+
+            '<td id="col0">'+
+                                '<select class="form-control" name="Gedung[]" id="dept" required>'+
+                                    '<option selected disabled>-- Select --</option>'+
+                                    '@foreach ($bangunan as $b)'+
+                                    '<option value="{{ $b->ID_Bangunan }}">{{ $b->Nama }}</option>'+
+                                    '@endforeach'+
+                                '</select>'+
+                            '</td>'+
+                            '<td id="col2"><input type="date" class="form-control" name="Date[]" placeholder="Enter tanggal" required></td>'+
+                            '<td id="col2"><input type="text" class="form-control" name="WIFI[]" placeholder="Enter pengeluaran wifi" required></td>'+
+                            '<td id="col1"><input type="text" class="form-control" name="Electric[]" placeholder="Enter pengeluaran listrik" required></td>'+
+                            '<td id="col3"><input type="text" class="form-control" name="Maintanance[]" placeholder="Enter pengeluaran pemeliharaan" required></td>'+
+            '<td><a href="#" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i></a></td>'+
+        '</tr>';
+        $('tbody').append(tr);
+    };
+
     $('.remove').live('click',function(){
         var last=$('tbody tr').length;
         if(last==1){
@@ -307,7 +358,6 @@
 
     $(document).ready(function(){
 
-      var postURL = "<?php echo url('addmore'); ?>";
 
       var i=1;
 

@@ -19,5 +19,4 @@ class Fasilitas extends Model
     //     return $this->hasOne(' App\Models\Kelompok','kelompokid','kelompokid');
     // }
     use HasFactory;
-    use HasFactory;
 }
