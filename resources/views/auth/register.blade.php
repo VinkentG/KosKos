@@ -26,10 +26,11 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="TempatTanggalLahir" class="col-md-4 col-form-label text-md-right">{{ __('TempatTanggalLahir') }}</label>
+                            <label for="TempatTanggalLahir" class="col-md-4 col-form-label text-md-right">{{ __('Tempat&Tanggal') }}</label>
 
                             <div class="col-md-6">
-                                <input id="TempatTanggalLahir" type="date" class="form-control @error('TempatTanggalLahir') is-invalid @enderror" name="TempatTanggalLahir" value="{{ old('TempatTanggalLahir') }}" required autocomplete="alamat" autofocus>
+                                <input id="Tempat" type="text" class="form-control @error('Tempat') is-invalid @enderror" name="Tempat" value="{{ old('Tempat') }}" required autocomplete="Tempat" autofocus>
+                                <input id="TempatTanggalLahir" type="date" class="form-control @error('TempatTanggalLahir') is-invalid @enderror" name="TempatTanggalLahir" value="{{ old('TempatTanggalLahir') }}" required autocomplete="TempatTanggalLahir" autofocus>
 
                                 @error('TempatTanggalLahir')
                                     <span class="invalid-feedback" role="alert">

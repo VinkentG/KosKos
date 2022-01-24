@@ -66,7 +66,7 @@ class RegisterController extends Controller
     {
         return User::create([
 
-            'TempatTanggalLahir' => $data['TempatTanggalLahir'],
+            'TempatTanggalLahir' => $data['Tempat'].' '.$data['TempatTanggalLahir'],
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),

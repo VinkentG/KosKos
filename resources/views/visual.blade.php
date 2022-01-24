@@ -453,7 +453,7 @@
 
 </script> --}}
 @endsection
-@section('foot')
+{{-- @section('foot')
 <footer>
     <div class="footer-content" id="contact">
         <h3>VizKost Developer</h3>
@@ -468,4 +468,4 @@
     </div>
 
 </footer>
-@endsection
+@endsection --}}
