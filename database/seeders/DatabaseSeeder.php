@@ -240,7 +240,7 @@ class DatabaseSeeder extends Seeder
             //     'Pemeliharaan' => ("50000"),
             //     'Pengeluaran' => ("750000"),
             //     'Tanggal' => ("2021-01-01"),
-            ],
+            // ],
         ]);
         \DB::table('_pegawai')->insert([
             [
