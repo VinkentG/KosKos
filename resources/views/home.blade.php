@@ -33,16 +33,16 @@
     background-image: url('{{ asset('storage/pexels-lukas-669615.jpg') }}')
     background-position: center;
     background-size: cover;
-    height: 1000px;
+    height: 650px;
     position: relative;
 }
 .ba .container{
-    margin-top: -20px;
+    margin-top: -10px;
     z-index: 1;
     position: relative;
 }
 .ba .display-4{
-    margin-top: 200px;
+    margin-top: 150px;
     font-size: 800px;
     font-weight: 400;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0,7);
@@ -64,6 +64,16 @@
     margin-top: 20px;
     font-weight: 600;
     font-size: 30px;
+}
+.bb .display-4 {
+    /* margin-top: 200px; */
+    font-weight: 600px;
+    font-size: 30px;
+}
+.bb .display-4 p{
+    margin-top: 40px;
+    /* font-weight: 600;
+    font-size: 30px; */
 }
 
 .ba::after{
@@ -113,7 +123,20 @@
 
 <div class="jumbotron jumbotron-fluid bb">
     <div class="container">
-
+        <div class="display-4">
+            <h1>About Us</h1>
+            <p>
+                Platform ini menyediakan jasa untuk menyediakan sarana melihat data rumah kost secara mudah dan cepat dengan visualisasi.
+            </p>
+            <p>
+              --------------------------------------------------------------------------------------------
+            <p>
+                This platform provides services to provide a means of viewing boarding house data easily and quickly with visualization.
+            </p>
+            <p>
+                --------------------------------------------------------------------------------------------
+              <p>
+            </div>
     </div>
   </div>
 

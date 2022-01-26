@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\Models\User;
 use App\Models\Penghasilan;
 use App\Models\Fasilitas;
 use App\Models\Bangunan;
@@ -15,6 +16,32 @@ use Redirect;
 
 class UpdateController extends Controller
 {
+    public function editprofile($id)
+    {
+        $User = DB::table('users')->where('ID_Pemilik', $id)->pluck('ID_Pemilik');
+        $User1 = DB::table('users')->where('ID_Pemilik', $id)->get();
+        // dd($User);
+
+        return view('editprofile')->with('users', $User)->with('users1', $User1);
+    }
+
+    public function updateprofile(Request $request, $id)
+    {
+        // $request->validate([
+        //     'name' => ['required', 'string', 'max:255'],
+        //     'email' => ['required', 'string', 'email', 'max:255'],
+        //     'phone' => ['required','string',],
+        // ]);
+        $user = new User;
+        User::where('ID_Pemilik', $id)->update([
+                    'name' => $request->name,
+                    'TempatTanggalLahir' => $request->tempat.' '.$request->tanggal,
+                    'Alamat'=>$request->alamat,
+                ]);
+
+        return Redirect::back()->with('success', 'Update Success!');
+    }
+
     public function editBangunan($id)
     {
         $Bangunan = DB::table('_bangunan')->where('_bangunan.ID_Pemilik', $id)->get();
@@ -143,6 +170,8 @@ class UpdateController extends Controller
                     'WIFI' => $request->WIFI,
                     'Listrik' => $request->Listrik,
                     'Pemeliharaan' => $request->Pemeliharaan,
+                    'Pengeluaran' => $request->WIFI+$request->Listrik+$request->Pemeliharaan,
+
                 ]);
 
         return Redirect::back()->with('success', 'Update Success!');

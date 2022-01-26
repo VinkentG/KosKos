@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             // $table->string('ID_Pemilik')->primary();
             $table->string('name');
             $table->string('TempatTanggalLahir');
+            $table->string('Alamat');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

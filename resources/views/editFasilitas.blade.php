@@ -17,7 +17,7 @@
                 <th>Tanggal</th>
                 <th>WIFI</th>
                 <th>Electric</th>
-                <th>Maintanance</th>>
+                <th>Maintanance</th>
             </tr>
         </thead>
         <tbody id="1col">

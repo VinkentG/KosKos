@@ -9,7 +9,7 @@ class Transaksi extends Model
 {
     protected $table = '_transaksi';
     protected $primarykey = 'ID_Transaksi';
-    protected $fillable = ['ID_Transaksi','ID_Kamar','ID_Bangunan','ID_Pelanggan','ID_Pemilik','Nominal','Status','Tanggal','LamaSewa'];
+    protected $fillable = ['ID_Transaksi','ID_Kamar','ID_Bangunan','ID_Pelanggan','ID_Pemilik','Nominal','Status','Tanggal','TanggalKeluar','LamaSewa'];
 
     // public function brand(){
     //     return $this->hasOne(' App\Models\Kelompok','brandid','brandid');

@@ -23,6 +23,7 @@ class User extends Authenticatable
         'ID_Pemilik',
         'name',
         'TempatTanggalLahir',
+        'Alamat',
         'email',
         'password',
     ];

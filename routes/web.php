@@ -50,6 +50,8 @@ Route::get('/editFasilitas/{id}/{idp}/{ids}', [App\Http\Controllers\UpdateContro
 Route::post('/editFasilitas/{id}/', [App\Http\Controllers\UpdateController::class, 'updateFasilitas']);
 Route::get('/editKamar/{id}/{idp}/{ids}', [App\Http\Controllers\UpdateController::class, 'editKamar']);
 Route::post('/editKamar/{id}/', [App\Http\Controllers\UpdateController::class, 'updateKamar']);
+Route::get('/editprofile/{id}', [App\Http\Controllers\UpdateController::class, 'editprofile']);
+Route::post('/updateprofile/[{id}]/', [App\Http\Controllers\UpdateController::class, 'updateprofile']);
 
 
 // Route::get('/view', [App\Http\Controllers\OrderController::class, 'home']);

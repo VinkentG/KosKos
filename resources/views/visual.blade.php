@@ -2,7 +2,6 @@
 @section('Nav1')
 <li class="scroll-to-section"><a class="nav-link" href="/home">Home</a></li>
 <li class="scroll-to-section"><a class="nav-link" href="/visual/{{ Auth::user()->ID_Pemilik }}">Visualization</a></li>
-<li class="scroll-to-section"><a class="nav-link" href="#contact">Contact</a></li>
 @endsection
 <style>
 .gambar{

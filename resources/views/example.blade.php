@@ -770,11 +770,12 @@ var optionsArea = {
                     <thead class="table-dark">
                         <tr>
                             <th>No</th>
-                            <th>Tanggal</th>
+                            <th>Tanggal Masuk</th>
                             <th>Kamar</th>
-                            <th>NamaPelanggan</th>
+                            <th>Nama Pelanggan</th>
                             {{-- <th>Notelp</th> --}}
                             <th>LamaSewa</th>
+                            <th>Tanggal  Keluar</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -788,6 +789,7 @@ var optionsArea = {
                         <td>{{ $b->NamaPelanggan }}</td>
                         {{-- <td>{{ $b->Notelp }}</td> --}}
                         <td>{{ $b->LamaSewa }}</td>
+                        <td>{{ $b->TanggalKeluar }}</td>
                         <td>{{ $b->Status }}</td>
                         <td>
                             <a type="button" href="/editTransaksi/{{$b->ID_Transaksi}}/{{ $av }}/{{ $ta }}" class="btn btn-primary btn-sm">Edit</a>
@@ -988,7 +990,14 @@ var optionsArea = {
                     <tbody>
                         <tr>
                             <td><input type="text" class="form-control" name="NamaPegawai[]" placeholder="Enter nama pegawai" required></td>
-                            <td><input type="text" class="form-control" name="Peran[]" placeholder="Enter peran" required></td>
+                            {{-- <td><input type="text" class="form-control" name="Peran[]" placeholder="Enter peran" required></td> --}}
+                            <td>
+                            <select class="form-control" name="Peran[]" required>
+                                <option selected disabled>-- Select --</option>
+                                <option value="Satpam">Satpam</option>
+                                <option value="Cleaning Service">Cleaning Service</option>
+                            </select>
+                            </td>
                             <td><input type="text" class="form-control" name="Gaji[]" placeholder="Enter gaji" required></td>
                             <td><input type="text" class="form-control" name="Alamat[]" placeholder="Enter alamat" required></td>
                                 <td><button type="button" class="btn btn-sm btn-success addRow">Add</button></td>
@@ -1030,10 +1039,11 @@ var optionsArea = {
                     <thead class="table-dark">
                         <tr>
                             <th>Room Type</th>
-                            <th>Name</th>
+                            <th>Name Customer</th>
                             <th>Date</th>
                             <th>NoTelp</th>
                             <th>Long Lease</th>
+                            {{-- <th>Total Customer Pay</th> --}}
                             <th></th>
                         </tr>
                     </thead>
@@ -1052,8 +1062,11 @@ var optionsArea = {
                             <td><input type="date" class="form-control" name="Date[]" placeholder="Enter tanggal masuk" required></td>
                             <td><input type="text" class="form-control" name="Telp[]" placeholder="Enter nomor telepon" required></td>
                             <td><input type="text" class="form-control" name="Long[]" placeholder="Enter lama sewa" required></td>
+                            {{-- <td><input type="text" class="form-control" name="Nominal[]" placeholder="Enter pembayaran pelanggan" required></td> --}}
                             <td><button type="button" class="btn btn-sm btn-success addRowTran">Add</button></td>
                         </tr>
+                        <p>*Long lease diisi dengan lama sewa yang customer sudah bayar</p>
+                        <p>*Kalau belum bayar isi dengan 0</p>
                     </tbody>
                 </table>
 
@@ -1149,7 +1162,7 @@ var optionsArea = {
                             <td><input type="text" class="form-control" name="TipeKamar[]" placeholder="Enter tipe kamar" required></td>
                             <td><input type="text" class="form-control" name="JumlahKamar[]" placeholder="Enter jumlah kamar" required></td>
                             <td><input type="text" class="form-control" name="BiayaKamar[]" placeholder="Enter baiaya kamar" required></td>
-                                <td><button type="button" class="btn btn-sm btn-success addRow">Add</button></td>
+                                <td><button type="button" class="btn btn-sm btn-success addRoom">Add</button></td>
                             </td>
                         </tr>
                     </tbody>
@@ -1175,8 +1188,16 @@ var optionsArea = {
     {
         var tr='<tr>'+
             '<td><input type="text" class="form-control" name="NamaPegawai[]" placeholder="Enter nama pegawai" required></td>'+
-            '<td><input type="tel" class="form-control" name="Peran[]" placeholder="Enter peran" required></td>'+
+            // '<td><input type="tel" class="form-control" name="Peran[]" placeholder="Enter peran" required></td>'+
+            '<td>'+
+            '<select class="form-control" name="Peran[]" required>'+
+                                '<option selected disabled>-- Select --</option>'+
+                                '<option value="Satpam">Satpam</option>'+
+                                '<option value="Cleaning Service">Cleaning Service</option>'+
+                            '</select>'+
+                            '</td>'+
             '<td><input type="text" class="form-control" name="Gaji[]" placeholder="Enter gaji" required></td>'+
+            '<td><input type="text" class="form-control" name="Alamat[]" placeholder="Enter alamat" required></td>'+
             // '<td><button type="button" class="btn btn-sm btn-danger text-danger remove">Remove</button></td>'+
             '<td><a href="#" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i></a></td>'+
         '</tr>';
@@ -1216,6 +1237,19 @@ var optionsArea = {
                             '<td id="col2"><input type="text" class="form-control" name="WIFI[]" placeholder="Enter pengeluaran wifi" required></td>'+
                             '<td id="col1"><input type="text" class="form-control" name="Electric[]" placeholder="Enter pengeluaran listrik" required></td>'+
                             '<td id="col3"><input type="text" class="form-control" name="Maintanance[]" placeholder="Enter pengeluaran pemeliharaan" required></td>'+
+            '<td><a href="#" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i></a></td>'+
+        '</tr>';
+        $('tbody').append(tr);
+    };
+    $('.addRoom').on('click',function(){
+        addRoom();
+    });
+    function addRoom()
+    {
+        var tr='<tr>'+
+           ' <td><input type="text" class="form-control" name="TipeKamar[]" placeholder="Enter tipe kamar" required></td>'+
+                            '<td><input type="text" class="form-control" name="JumlahKamar[]" placeholder="Enter jumlah kamar" required></td>'+
+                            '<td><input type="text" class="form-control" name="BiayaKamar[]" placeholder="Enter baiaya kamar" required></td>'+
             '<td><a href="#" class="btn btn-danger remove"><i class="glyphicon glyphicon-remove"></i></a></td>'+
         '</tr>';
         $('tbody').append(tr);
