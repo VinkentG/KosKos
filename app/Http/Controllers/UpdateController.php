@@ -13,6 +13,7 @@ use App\Models\Transaksi;
 use App\Models\Kamar;
 use App\Models\Pelanggan;
 use Redirect;
+use Carbon\Carbon;
 
 class UpdateController extends Controller
 {
@@ -20,9 +21,13 @@ class UpdateController extends Controller
     {
         $User = DB::table('users')->where('ID_Pemilik', $id)->pluck('ID_Pemilik');
         $User1 = DB::table('users')->where('ID_Pemilik', $id)->get();
-        // dd($User);
+        $User2 = DB::table('users')->where('ID_Pemilik', $id)->pluck('TempatTanggalLahir');
+        $tempat = substr($User2,2,strpos($User2," ")-2);
+        $tanggal= substr($User2,strpos($User2," ")+1,strpos($User2," ")+1);
+        // $tanggal1 = Carbon::createFromFormat('d-m-Y', $tanggal);
+        // dd($tanggal1);
 
-        return view('editprofile')->with('users', $User)->with('users1', $User1);
+        return view('editprofile')->with('users', $User)->with('users1', $User1)->with('tempat', $tempat)->with('tanggal', $tanggal);
     }
 
     public function updateprofile(Request $request, $id)
@@ -113,6 +118,9 @@ class UpdateController extends Controller
         $transaksi5 = DB::table('_transaksi')->join('_kamar', '_transaksi.ID_Kamar', '=', '_kamar.ID_Kamar')->join('_bangunan', '_transaksi.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
         ->join('_pelanggan', '_transaksi.ID_Pelanggan', '=', '_pelanggan.ID_Pelanggan')
         ->where('ID_Transaksi', $id)->pluck('Tanggal');
+        $transaksi6 = DB::table('_transaksi')->join('_kamar', '_transaksi.ID_Kamar', '=', '_kamar.ID_Kamar')->join('_bangunan', '_transaksi.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
+        ->join('_pelanggan', '_transaksi.ID_Pelanggan', '=', '_pelanggan.ID_Pelanggan')
+        ->where('ID_Transaksi', $id)->get();
 
         $kamar = DB::table('_kamar')->join('_bangunan', '_kamar.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
         ->where('_bangunan.ID_Bangunan', $idp)->get();
@@ -122,7 +130,7 @@ class UpdateController extends Controller
         $IDS = $ids;
 
         return view('editTransaksi')->with('id', $ID)->with('idp', $IDP)->with('ids', $IDS)->with('kamar1', $transaksi4)->with('kamar', $kamar)
-        ->with('lama', $transaksi2)->with('nama', $transaksi1)->with('status', $transaksi3)->with('tanggal', $transaksi5);
+        ->with('lama', $transaksi2)->with('nama', $transaksi1)->with('status', $transaksi3)->with('tanggal', $transaksi5)->with('transaksi', $transaksi6);
     }
 
     public function updateTransaksi(Request $request, $id)
@@ -150,12 +158,12 @@ class UpdateController extends Controller
 
     public function editFasilitas($id, $idp, $ids)
     {
-        $Fasilitas = DB::table('_fasilitas')->where('ID_Fasilitas', $id)->pluck('Tanggal');
+        $Fasilitas1 = DB::table('_fasilitas')->where('ID_Fasilitas', $id)->get();
         $ID = $id;
         $IDP = $idp;
         $IDS = $ids;
 
-        return view('editFasilitas')->with('tanggal', $Fasilitas)->with('id', $ID)->with('idp', $IDP)->with('ids', $IDS);
+        return view('editFasilitas')->with('fasilitas', $Fasilitas1)->with('id', $ID)->with('idp', $IDP)->with('ids', $IDS);
     }
 
     public function updateFasilitas(Request $request, $id)
@@ -179,12 +187,12 @@ class UpdateController extends Controller
 
     public function editKamar($id, $idp, $ids)
     {
-        $Kamar = DB::table('_kamar')->where('ID_Kamar', $id);
+        $Kamar = DB::table('_kamar')->where('ID_Kamar', $id)->get();
         $ID = $id;
         $IDP = $idp;
         $IDS = $ids;
 
-        return view('editKamar')->with('id', $ID)->with('idp', $IDP)->with('ids', $IDS);
+        return view('editKamar')->with('id', $ID)->with('idp', $IDP)->with('ids', $IDS)->with('kamar', $Kamar);
     }
 
     public function updateKamar(Request $request, $id)

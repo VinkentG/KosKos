@@ -17,15 +17,18 @@
                 <th>Name</th>
                 <th>Place of Birth</th>
                 <th>Date of Birth</th>
-                <th>Address/th>
+                <th>Address</th>
             </tr>
         </thead>
         <tbody id="1col">
         <tr>
-            <td><input id="col0" type="text" name="name" placeholder="Masukan nama baru" class="form-control name_list" /></td>
-            <td><input id="col1" type="text" name="tempat" placeholder="Masukan tempat lahir baru" class="form-control name_list" /></td>
-            <td><input id="col0" type="date" name="tanggal" placeholder="Masukan tanggal lahir baru" class="form-control name_list" /></td>
-            <td><input id="col0" type="text" name="alamat" placeholder="Masukan alamat baru" class="form-control name_list" /></td>
+            @foreach ($users1 as $a)
+            <td><input id="col0" type="text" name="name" value="{{ $a->name }}" class="form-control name_list"></td>
+            <td><input id="col1" type="text" name="tempat" value="{{ $tempat }}" class="form-control name_list" /></td>
+            <td><input id="col0" type="date" name="tanggal" value="{{ $tanggal }}" class="form-control name_list" /></td>
+            <td><input id="col0" type="text" name="alamat" value="{{ $a->Alamat }}" class="form-control name_list" /></td>
+            @endforeach
+
         </tr>
         <td><a
             href="/visual/{{ Auth::user()->ID_Pemilik }}"

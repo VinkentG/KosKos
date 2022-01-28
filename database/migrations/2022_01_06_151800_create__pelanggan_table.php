@@ -20,7 +20,7 @@ class CreatePelangganTable extends Migration
             $table->string('ID_Kamar');
             $table->foreign('ID_Kamar')->references("ID_Kamar")->on("_kamar")->onDelete("cascade")->onUpdate("cascade");
             $table->string('NamaPelanggan');
-            $table->integer('Notelp');
+            $table->biginteger('Notelp');
        });
     }
 

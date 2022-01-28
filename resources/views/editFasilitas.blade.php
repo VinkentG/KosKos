@@ -22,10 +22,12 @@
         </thead>
         <tbody id="1col">
         <tr>
-            <td>{{ $tanggal }}</td>
-            <td>Rp. <input id="col0" type="text" name="WIFI" placeholder="Masukan nama pegawai baru" class="form-control name_list" /></td>
-            <td>Rp. <input id="col1" type="text" name="Listrik" placeholder="Masukan alamat baru" class="form-control name_list" /></td>
-            <td>Rp. <input id="col1" type="text" name="Pemeliharaan" placeholder="Masukan gaji baru" class="form-control name_list" /></td>
+            @foreach ($fasilitas as $a)
+            <td>{{ $a->Tanggal }}</td>
+            <td>Rp. <input id="col0" type="text" name="WIFI" value="{{ $a->WIFI }}" class="form-control name_list" /></td>
+            <td>Rp. <input id="col1" type="text" name="Listrik" value="{{ $a->Listrik }}" class="form-control name_list" /></td>
+            <td>Rp. <input id="col1" type="text" name="Pemeliharaan" value="{{ $a->Pemeliharaan }}" class="form-control name_list" /></td>
+            @endforeach
         </tr>
         <td><a
             href="/example/{{ Auth::user()->ID_Pemilik }}/{{ $idp }}/{{ $ids }}"

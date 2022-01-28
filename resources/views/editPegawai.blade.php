@@ -22,10 +22,12 @@
         </thead>
         <tbody id="1col">
         <tr>
-            <td><input id="col0" type="text" name="NamaPegawai" placeholder="Masukan nama pegawai baru" class="form-control name_list" /></td>
-            <td><input id="col1" type="text" name="Alamat" placeholder="Masukan alamat baru" class="form-control name_list" /></td>
-            <td><input id="col1" type="text" name="Gaji" placeholder="Masukan gaji baru" class="form-control name_list" /></td>
-            <td><input id="col1" type="text" name="Peran" placeholder="Masukan peran baru" class="form-control name_list" /></td>
+            @foreach ($Pegawai as $a)
+            <td><input id="col0" type="text" name="NamaPegawai" value="{{ $a->NamaPegawai }}" class="form-control name_list" /></td>
+            <td><input id="col1" type="text" name="Alamat" value="{{ $a->Alamat }}" class="form-control name_list" /></td>
+            <td><input id="col1" type="text" name="Gaji" value="{{ $a->Gaji }}" class="form-control name_list" /></td>
+            <td><input id="col1" type="text" name="Peran" value="{{ $a->Peran}}" class="form-control name_list" /></td>
+            @endforeach
 
         </tr>
         <td><a

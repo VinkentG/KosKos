@@ -2,12 +2,12 @@
 @section('Nav1')
 @guest
 <li class="scroll-to-section"><a class="nav-link" href="#login">Home</a></li>
-<li class="scroll-to-section"><a class="nav-link" href="#login">About Us</a></li>
-<li class="scroll-to-section"><a class="nav-link" href="#login">Contact</a></li>
+<li class="scroll-to-section"><a class="nav-link" href="#about">About Us</a></li>
+<li class="scroll-to-section"><a class="nav-link" href="#contact">Contact</a></li>
 @else
 <li class="scroll-to-section"><a class="nav-link" href="#home">Home</a></li>
 <li class="scroll-to-section"><a class="nav-link" href="/visual/{{ Auth::user()->ID_Pemilik }}">Visualization</a></li>
-<li class="scroll-to-section"><a class="nav-link" href="#abiut">About Us</a></li>
+<li class="scroll-to-section"><a class="nav-link" href="#about">About Us</a></li>
 <li class="scroll-to-section"><a class="nav-link" href="#contact">Contact</a></li>
 @endguest
 @endsection
@@ -115,13 +115,13 @@
     <div class="container">
         <div class="display-4">
         <h1>Wellcome <span>Back</span> <br> {{ Auth::user()->name }}
-        <br><a class="btn btn-primary shadow" href="#" role="button">Get Started</a></h1>
+        <br><a class="btn btn-primary shadow" href="/visual/{{ Auth::user()->ID_Pemilik }}" role="button">Get Started</a></h1>
         </div>
     </div>
   </div>
 @endguest
 
-<div class="jumbotron jumbotron-fluid bb">
+<div class="jumbotron jumbotron-fluid bb" id="about">
     <div class="container">
         <div class="display-4">
             <h1>About Us</h1>
@@ -146,7 +146,7 @@
 <footer>
     <div class="footer-content" id="contact">
         <h3>VizKost Developer</h3>
-        <p>Raj Template is a blog website where you will find great tutorials on web design and development. Here each tutorial is beautifully described step by step with the required source code.</p>
+        <p>Contact us if you need more help</p>
         <ul class="socials">
             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
             <li><a href="#"><i class="fa fa-twitter"></i></a></li>

@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             'TempatTanggalLahir' => ("2021-02-01"),
             'email' => ("bw@gidd.com"),
             'password' => ("abcd"),
+            'Alamat'=> ("cdc"),
             ],
             [
             'ID_Pemilik' => ("3"),
@@ -35,6 +36,7 @@ class DatabaseSeeder extends Seeder
             'TempatTanggalLahir' => ("2021-02-01"),
             'email' => ("aw@gidd.com"),
             'password' => ("abcd"),
+            'Alamat'=> ("cdc"),
             ],
             [
             'ID_Pemilik' => ("4"),
@@ -42,6 +44,8 @@ class DatabaseSeeder extends Seeder
             'TempatTanggalLahir' => ("2021-02-01"),
             'email' => ("jw@gidd.com"),
             'password' => ("abcd"),
+            'Alamat'=> ("cdc"),
+
             ],
         ]);
         \DB::table('_bangunan')->insert([
@@ -232,15 +236,15 @@ class DatabaseSeeder extends Seeder
                 'Pengeluaran' => ("750000"),
                 'Tanggal' => ("2021-12-01"),
             ],
-            [
-                'ID_Fasilitas' => ("F0013"),
-                'ID_Bangunan' => ("B0002"),
-                'Listrik' => ("500000"),
-                'WIFI' => ("250000"),
-                'Pemeliharaan' => ("50000"),
-                'Pengeluaran' => ("750000"),
-                'Tanggal' => ("2021-01-01"),
-            ],
+            // [
+            //     'ID_Fasilitas' => ("F0013"),
+            //     'ID_Bangunan' => ("B0002"),
+            //     'Listrik' => ("500000"),
+            //     'WIFI' => ("250000"),
+            //     'Pemeliharaan' => ("50000"),
+            //     'Pengeluaran' => ("750000"),
+            //     'Tanggal' => ("2021-01-01"),
+            // ],
         ]);
         \DB::table('_pegawai')->insert([
             [
@@ -311,6 +315,7 @@ class DatabaseSeeder extends Seeder
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-01-01"),
             'LamaSewa' => ("1"),
+            'TanggalKeluar' => ("2021-02-01"),
             ],
             [
             'ID_Transaksi' => ("T0002"),
@@ -322,6 +327,7 @@ class DatabaseSeeder extends Seeder
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-01-01"),
             'LamaSewa' => ("2"),
+            'TanggalKeluar' => ("2021-03-01"),
             ],
              [
             'ID_Transaksi' => ("T0003"),
@@ -333,6 +339,7 @@ class DatabaseSeeder extends Seeder
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-02-01"),
             'LamaSewa' => ("2"),
+            'TanggalKeluar' => ("2021-04-01"),
             ],
             [
             'ID_Transaksi' => ("T0004"),
@@ -344,6 +351,7 @@ class DatabaseSeeder extends Seeder
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-03-01"),
             'LamaSewa' => ("2"),
+            'TanggalKeluar' => ("2021-05-01"),
             ],
              [
             'ID_Transaksi' => ("T0005"),
@@ -355,6 +363,7 @@ class DatabaseSeeder extends Seeder
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-04-01"),
             'LamaSewa' => ("1"),
+            'TanggalKeluar' => ("2021-05-01"),
             ],
             [
             'ID_Transaksi' => ("T0006"),
@@ -366,6 +375,7 @@ class DatabaseSeeder extends Seeder
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-05-01"),
             'LamaSewa' => ("1"),
+            'TanggalKeluar' => ("2021-06-01"),
             ],
              [
             'ID_Transaksi' => ("T0007"),
@@ -377,6 +387,7 @@ class DatabaseSeeder extends Seeder
             'Status' => ("0"),
             'Tanggal' => ("2021-06-01"),
             'LamaSewa' => ("1"),
+            'TanggalKeluar' => ("2021-07-01"),
             ],
             [
             'ID_Transaksi' => ("T0008"),
@@ -388,6 +399,7 @@ class DatabaseSeeder extends Seeder
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-07-01"),
             'LamaSewa' => ("3"),
+            'TanggalKeluar' => ("2021-10-01"),
             ],
               [
             'ID_Transaksi' => ("T0009"),
@@ -399,6 +411,7 @@ class DatabaseSeeder extends Seeder
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-08-01"),
             'LamaSewa' => ("1"),
+            'TanggalKeluar' => ("2021-09-01"),
             ],
             [
             'ID_Transaksi' => ("T0010"),
@@ -410,6 +423,7 @@ class DatabaseSeeder extends Seeder
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-09-01"),
             'LamaSewa' => ("2"),
+            'TanggalKeluar' => ("2021-09-01"),
             ],
               [
             'ID_Transaksi' => ("T0011"),
@@ -421,6 +435,7 @@ class DatabaseSeeder extends Seeder
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-10-01"),
             'LamaSewa' => ("1"),
+            'TanggalKeluar' => ("2021-09-01"),
             ],
               [
             'ID_Transaksi' => ("T0012"),
@@ -432,6 +447,7 @@ class DatabaseSeeder extends Seeder
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-11-01"),
             'LamaSewa' => ("1"),
+            'TanggalKeluar' => ("2021-09-01"),
             ],
               [
             'ID_Transaksi' => ("T0013"),
@@ -443,6 +459,7 @@ class DatabaseSeeder extends Seeder
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-12-01"),
             'LamaSewa' => ("1"),
+            'TanggalKeluar' => ("2021-09-01"),
             ],
                [
             'ID_Transaksi' => ("T0014"),
@@ -454,6 +471,7 @@ class DatabaseSeeder extends Seeder
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-12-01"),
             'LamaSewa' => ("1"),
+            'TanggalKeluar' => ("2021-09-01"),
             ],
             [
             'ID_Transaksi' => ("T0015"),
@@ -465,6 +483,7 @@ class DatabaseSeeder extends Seeder
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-04-01"),
             'LamaSewa' => ("4"),
+            'TanggalKeluar' => ("2021-09-01"),
             ],
              [
             'ID_Transaksi' => ("T0016"),
@@ -476,6 +495,7 @@ class DatabaseSeeder extends Seeder
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-03-01"),
             'LamaSewa' => ("4"),
+            'TanggalKeluar' => ("2021-09-01"),
             ],
                 [
             'ID_Transaksi' => ("T0017"),
@@ -487,6 +507,7 @@ class DatabaseSeeder extends Seeder
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-09-01"),
             'LamaSewa' => ("4"),
+            'TanggalKeluar' => ("2021-09-01"),
             ],
                 [
             'ID_Transaksi' => ("T0018"),
@@ -498,6 +519,7 @@ class DatabaseSeeder extends Seeder
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-06-01"),
             'LamaSewa' => ("6"),
+            'TanggalKeluar' => ("2021-09-01"),
             ],
                 [
             'ID_Transaksi' => ("T0019"),
@@ -509,6 +531,7 @@ class DatabaseSeeder extends Seeder
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-10-01"),
             'LamaSewa' => ("8"),
+            'TanggalKeluar' => ("2021-09-01"),
             ],
                 [
             'ID_Transaksi' => ("T0020"),
@@ -520,6 +543,7 @@ class DatabaseSeeder extends Seeder
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-11-01"),
             'LamaSewa' => ("12"),
+            'TanggalKeluar' => ("2021-09-01"),
             ],
                  [
             'ID_Transaksi' => ("T0021"),
@@ -531,107 +555,108 @@ class DatabaseSeeder extends Seeder
             'Status' => ("Lunas"),
             'Tanggal' => ("2021-05-01"),
             'LamaSewa' => ("12"),
+            'TanggalKeluar' => ("2021-09-01"),
             ],
         ]);
-        \DB::table('_penghasilan')->insert([
-            [
-            'ID_Penghasilan' => ("T0001"),
-            'ID_Bangunan' => ("B0001"),
-            'Tanggal' => ("2021-01-01"),
-            'LabaBersih' => ("4000000"),
-            'LabaKotor' => ("1000000"),
-            ],
-            [
-            'ID_Penghasilan' => ("T0002"),
-            'ID_Bangunan' => ("B0001"),
-            'Tanggal' => ("2021-02-01"),
-            'LabaBersih' => ("2000000"),
-            'LabaKotor' => ("3000000"),
-            ],
-              [
-            'ID_Penghasilan' => ("T0003"),
-            'ID_Bangunan' => ("B0001"),
-            'Tanggal' => ("2021-03-01"),
-            'LabaBersih' => ("1000000"),
-            'LabaKotor' => ("2000000"),
-            ],
-            [
-            'ID_Penghasilan' => ("T0004"),
-            'ID_Bangunan' => ("B0001"),
-            'Tanggal' => ("2021-04-01"),
-            'LabaBersih' => ("4000000"),
-            'LabaKotor' => ("5000000"),
-            ],
-              [
-            'ID_Penghasilan' => ("T0005"),
-            'ID_Bangunan' => ("B0001"),
-            'Tanggal' => ("2021-05-01"),
-            'LabaBersih' => ("1000000"),
-            'LabaKotor' => ("2000000"),
-            ],
-            [
-            'ID_Penghasilan' => ("T0006"),
-            'ID_Bangunan' => ("B0001"),
-            'Tanggal' => ("2021-06-01"),
-            'LabaBersih' => ("8000000"),
-            'LabaKotor' => ("7000000"),
-            ],
-                [
-            'ID_Penghasilan' => ("T0007"),
-            'ID_Bangunan' => ("B0001"),
-            'Tanggal' => ("2021-07-01"),
-            'LabaBersih' => ("8000000"),
-            'LabaKotor' => ("7000000"),
-            ],
-            [
-                'ID_Penghasilan' => ("T0008"),
-                'ID_Bangunan' => ("B0001"),
-                'Tanggal' => ("2021-08-01"),
-                'LabaBersih' => ("4000000"),
-                'LabaKotor' => ("1000000"),
-                ],
-                [
-                'ID_Penghasilan' => ("T0009"),
-                'ID_Bangunan' => ("B0001"),
-                'Tanggal' => ("2021-9-01"),
-                'LabaBersih' => ("2000000"),
-                'LabaKotor' => ("3000000"),
-                ],
-                  [
-                'ID_Penghasilan' => ("T0010"),
-                'ID_Bangunan' => ("B0001"),
-                'Tanggal' => ("2021-10-01"),
-                'LabaBersih' => ("1000000"),
-                'LabaKotor' => ("2000000"),
-                ],
-                [
-                'ID_Penghasilan' => ("T0011"),
-                'ID_Bangunan' => ("B0001"),
-                'Tanggal' => ("2021-11-01"),
-                'LabaBersih' => ("4000000"),
-                'LabaKotor' => ("5000000"),
-                ],
-                  [
-                'ID_Penghasilan' => ("T0012"),
-                'ID_Bangunan' => ("B0001"),
-                'Tanggal' => ("2021-12-01"),
-                'LabaBersih' => ("1000000"),
-                'LabaKotor' => ("2000000"),
-                ],
-                [
-                'ID_Penghasilan' => ("T0013"),
-                'ID_Bangunan' => ("B0002"),
-                'Tanggal' => ("2020-06-01"),
-                'LabaBersih' => ("8000000"),
-                'LabaKotor' => ("7000000"),
-                ],
-                    [
-                'ID_Penghasilan' => ("T0014"),
-                'ID_Bangunan' => ("B0002"),
-                'Tanggal' => ("2020-07-01"),
-                'LabaBersih' => ("8000000"),
-                'LabaKotor' => ("7000000"),
-                ],
-        ]);
+        // \DB::table('_penghasilan')->insert([
+        //     [
+        //     'ID_Penghasilan' => ("T0001"),
+        //     'ID_Bangunan' => ("B0001"),
+        //     'Tanggal' => ("2021-01-01"),
+        //     'LabaBersih' => ("4000000"),
+        //     'LabaKotor' => ("1000000"),
+        //     ],
+        //     [
+        //     'ID_Penghasilan' => ("T0002"),
+        //     'ID_Bangunan' => ("B0001"),
+        //     'Tanggal' => ("2021-02-01"),
+        //     'LabaBersih' => ("2000000"),
+        //     'LabaKotor' => ("3000000"),
+        //     ],
+        //       [
+        //     'ID_Penghasilan' => ("T0003"),
+        //     'ID_Bangunan' => ("B0001"),
+        //     'Tanggal' => ("2021-03-01"),
+        //     'LabaBersih' => ("1000000"),
+        //     'LabaKotor' => ("2000000"),
+        //     ],
+        //     [
+        //     'ID_Penghasilan' => ("T0004"),
+        //     'ID_Bangunan' => ("B0001"),
+        //     'Tanggal' => ("2021-04-01"),
+        //     'LabaBersih' => ("4000000"),
+        //     'LabaKotor' => ("5000000"),
+        //     ],
+        //       [
+        //     'ID_Penghasilan' => ("T0005"),
+        //     'ID_Bangunan' => ("B0001"),
+        //     'Tanggal' => ("2021-05-01"),
+        //     'LabaBersih' => ("1000000"),
+        //     'LabaKotor' => ("2000000"),
+        //     ],
+        //     [
+        //     'ID_Penghasilan' => ("T0006"),
+        //     'ID_Bangunan' => ("B0001"),
+        //     'Tanggal' => ("2021-06-01"),
+        //     'LabaBersih' => ("8000000"),
+        //     'LabaKotor' => ("7000000"),
+        //     ],
+        //         [
+        //     'ID_Penghasilan' => ("T0007"),
+        //     'ID_Bangunan' => ("B0001"),
+        //     'Tanggal' => ("2021-07-01"),
+        //     'LabaBersih' => ("8000000"),
+        //     'LabaKotor' => ("7000000"),
+        //     ],
+        //     [
+        //         'ID_Penghasilan' => ("T0008"),
+        //         'ID_Bangunan' => ("B0001"),
+        //         'Tanggal' => ("2021-08-01"),
+        //         'LabaBersih' => ("4000000"),
+        //         'LabaKotor' => ("1000000"),
+        //         ],
+        //         [
+        //         'ID_Penghasilan' => ("T0009"),
+        //         'ID_Bangunan' => ("B0001"),
+        //         'Tanggal' => ("2021-9-01"),
+        //         'LabaBersih' => ("2000000"),
+        //         'LabaKotor' => ("3000000"),
+        //         ],
+        //           [
+        //         'ID_Penghasilan' => ("T0010"),
+        //         'ID_Bangunan' => ("B0001"),
+        //         'Tanggal' => ("2021-10-01"),
+        //         'LabaBersih' => ("1000000"),
+        //         'LabaKotor' => ("2000000"),
+        //         ],
+        //         [
+        //         'ID_Penghasilan' => ("T0011"),
+        //         'ID_Bangunan' => ("B0001"),
+        //         'Tanggal' => ("2021-11-01"),
+        //         'LabaBersih' => ("4000000"),
+        //         'LabaKotor' => ("5000000"),
+        //         ],
+        //           [
+        //         'ID_Penghasilan' => ("T0012"),
+        //         'ID_Bangunan' => ("B0001"),
+        //         'Tanggal' => ("2021-12-01"),
+        //         'LabaBersih' => ("1000000"),
+        //         'LabaKotor' => ("2000000"),
+        //         ],
+        //         [
+        //         'ID_Penghasilan' => ("T0013"),
+        //         'ID_Bangunan' => ("B0002"),
+        //         'Tanggal' => ("2020-06-01"),
+        //         'LabaBersih' => ("8000000"),
+        //         'LabaKotor' => ("7000000"),
+        //         ],
+        //             [
+        //         'ID_Penghasilan' => ("T0014"),
+        //         'ID_Bangunan' => ("B0002"),
+        //         'Tanggal' => ("2020-07-01"),
+        //         'LabaBersih' => ("8000000"),
+        //         'LabaKotor' => ("7000000"),
+        //         ],
+        // ]);
     }
 }

@@ -21,9 +21,11 @@
         </thead>
         <tbody id="1col">
         <tr>
-            <td><input id="col0" type="text" name="TipeKamar" placeholder="Masukan tipe kamar baru" class="form-control name_list" /></td>
-            <td><input id="col1" type="text" name="JumlahKamar" placeholder="Masukan jumlah kamar baru" class="form-control name_list" /></td>
-            <td><input id="col1" type="text" name="BiayaKamar" placeholder="Masukan biaya baru" class="form-control name_list" /></td>
+            @foreach ($kamar as $a)
+            <td><input id="col0" type="text" name="TipeKamar" value="{{ $a->TipeKamar }}" class="form-control name_list" /></td>
+            <td><input id="col1" type="text" name="JumlahKamar" value="{{ $a->JumlahKamar }}" class="form-control name_list" /></td>
+            <td><input id="col1" type="text" name="BiayaKamar" value="{{ $a->BiayaKamar }}" class="form-control name_list" /></td>
+            @endforeach
 
         </tr>
         <td><a

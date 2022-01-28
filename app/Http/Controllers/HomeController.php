@@ -119,6 +119,11 @@ class HomeController extends Controller
         ->where('_bangunan.ID_Pemilik', $id)
         ->where('_bangunan.ID_Bangunan', $idb)//year
         ->whereYear('Tanggal', $ids)->get();
+        $transaksilist = DB::table('_transaksi')->join('_kamar', '_transaksi.ID_Kamar', '=', '_kamar.ID_Kamar')->join('_bangunan', '_transaksi.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
+        ->join('_pelanggan', '_transaksi.ID_Pelanggan', '=', '_pelanggan.ID_Pelanggan')
+        ->where('_bangunan.ID_Pemilik', $id)
+        ->where('_bangunan.ID_Bangunan', $idb)//year
+        ->whereYear('Tanggal', $ids)->paginate(20);
         $transaksi1 = DB::table('_transaksi')->join('_kamar', '_transaksi.ID_Kamar', '=', '_kamar.ID_Kamar')->join('_bangunan', '_transaksi.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
         ->join('_pelanggan', '_transaksi.ID_Pelanggan', '=', '_pelanggan.ID_Pelanggan')
         ->where('_bangunan.ID_Pemilik', $id)
@@ -153,6 +158,11 @@ class HomeController extends Controller
           ->whereYear('Tanggal', $ids)
           ->select(DB::raw('SUM(Nominal) as totalamount, MONTH(Tanggal) as month'))
           ->groupBy(DB::raw('MONTH(Tanggal) ASC'))->get();
+          $nominal2 = DB::table('_transaksi')->join('_bangunan', '_transaksi.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
+          // ->join('_pelanggan', '_transaksi.ID_Pelanggan', '=', '_pelanggan.ID_Pelanggan')
+          ->where('_bangunan.ID_Pemilik', $id)
+          ->where('_bangunan.ID_Bangunan', $idb)
+           ->get();
 
         $Bangunan = DB::table('_bangunan')->where('_bangunan.ID_Pemilik', $id)->get();
 
@@ -221,6 +231,14 @@ class HomeController extends Controller
         //     $Tahun1[] = Carbon::createFromFormat('Y-m-d', $lb->Tanggal)->format('Y');
         // }
 
+        $Tahun2 = [];
+        foreach ($nominal2 as $lb) {
+                $Tahun2[] = Carbon::createFromFormat('Y-m-d', $lb->Tanggal)->format('Y');
+            }
+            $ab =  array_count_values($Tahun2);
+            $ab1 =  array_keys($ab);
+
+
         foreach ($fasilitas as $lb) {
         // foreach ($nominal as $lb) {
              // $Bulan[] = substr($lb->Tanggal,0,strpos($lb->Tanggal," "));
@@ -276,7 +294,7 @@ class HomeController extends Controller
         ->with('Pengeluaran', $total)->with('TotalLaba', $totallababersih)->with('totalGaji', $totalGaji)->with('pegawai', $pegawai)
         ->with('value', $array_values)->with('key', $array_keys)->with('year', $Year)->with('bulanTransaksi', $bulanTransaksi)->with('countbulan', $countbulan)
         ->with('r', $r)->with('tahunini', $tahunini)->with('av', $av)->with('Tahundrop', $ak)->with('Bangunan', $Bangunan)->with('ta', $ta)->with('kamar', $kamar)
-        ->with('transaksi', $transaksi1)->with('faslitas', $fasilitas);
+        ->with('transaksi', $transaksi1) ->with('transaksi1', $transaksilist)->with('faslitas', $fasilitas)->with('ab1', $ab1);
     }
 
     public function addBangunan(Request $request)

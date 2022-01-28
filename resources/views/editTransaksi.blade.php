@@ -23,20 +23,22 @@
         </thead>
         <tbody id="1col">
         <tr>
-            <td>{{ $tanggal }}</td>
-            <td>{{ $kamar1 }}</td>
-            <td><input id="col1" type="text" name="NamaPelanggan" placeholder="{{ $nama }}" class="form-control name_list" /></td>
-            <td><input id="col1" type="text" name="LamaSewa" placeholder="{{ $lama}}" class="form-control name_list" /></td>
+            @foreach ($transaksi as $a)
+            <td>{{ $a->Tanggal }}</td>
+            <td>{{ $a->TipeKamar }}</td>
+            <td><input id="col1" type="text" name="NamaPelanggan" value="{{ $a->NamaPelanggan }}" class="form-control name_list" /></td>
+            <td><input id="col1" type="text" name="LamaSewa" value="{{ $a->LamaSewa }}" class="form-control name_list" /></td>
             @error('LamaSewa')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
             <td>
             <select class="form-control" name="Status">
-                <option selected disabled placeholder="{{ $status }}">--</option>
+                <option selected disabled value="{{ $a->Status }}">--</option>
                 <option value="Lunas">Lunas</option>
                 <option value="Belum Lunas">Belum Lunas</option>
             </select>
         </td>
+            @endforeach
         </tr>
         <td><a
             href="/example/{{ Auth::user()->ID_Pemilik }}/{{ $idp }}/{{ $ids }}"

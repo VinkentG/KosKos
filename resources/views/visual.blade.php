@@ -57,7 +57,8 @@
               <div class="card-body">
                 <h5 class="card-title">{{ $b->Nama }}</h5>
                 <p class="card-text">{{ $b->Alamat }}</p>
-                <a type="button" class="btn btn-primary btn-sm shadow" href="/example/{{ Auth::user()->ID_Pemilik }}/{{ $b->ID_Bangunan }}/{{ $tahunini }}">View</a/>
+                {{-- <a type="button" class="btn btn-primary btn-sm shadow" href="/example/{{ Auth::user()->ID_Pemilik }}/{{ $b->ID_Bangunan }}/{{ $tahunini }}">View</a/> --}}
+                <a type="button" class="btn btn-primary btn-sm shadow" href="/example/{{ Auth::user()->ID_Pemilik }}/{{ $b->ID_Bangunan }}/2021">View</a/>
                 </div>
             </div>
             </div>

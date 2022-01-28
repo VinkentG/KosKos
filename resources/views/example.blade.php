@@ -111,7 +111,7 @@ body {
                 <div class="dropdown-menu">
                     <div class="col-md-auto">
                     <a href="/example/{{ Auth::user()->ID_Pemilik }}/{{ $av }}/{{ $year }}">{{ $year }}</a></div>
-                    @foreach ($Tahundrop as $a)
+                    @foreach ($ab1 as $a)
                     <div class="col-md-auto">
                         <a href="/example/{{ Auth::user()->ID_Pemilik }}/{{ $av }}/{{ $a }}">{{ $a }}</a>
                       </div>
@@ -781,7 +781,7 @@ var optionsArea = {
                         </tr>
                     </thead>
                     <tbody id="1col">
-                        @foreach ($transaksi as $b)
+                        @foreach ($transaksi1 as $b)
                         <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $b->Tanggal}}</td>
@@ -802,12 +802,15 @@ var optionsArea = {
                         </td>
                         </tr>
                         @endforeach
+
                 </tbody>
                 </table>
 
+
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <div width=100> {{$transaksi1->links('pagination::bootstrap-4')}}</div>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -935,7 +938,7 @@ var optionsArea = {
                     </a></div>
                   <div class="col">
                     <a class="btn btn-outline-warning shadow" href="#">
-                        <span class="btn-text-warning" data-toggle="modal" data-target="#transaction">Add Transaksi</span>
+                        <span class="btn-text-warning" data-toggle="modal" data-target="#transaction">Add Transaction</span>
                         </a></div>
                   <div class="w-100"></div>
                   <div class="col">
@@ -1085,7 +1088,7 @@ var optionsArea = {
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Add Transaction</h5>
+          <h5 class="modal-title" id="staticBackdropLabel">Add Spending</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -1112,9 +1115,9 @@ var optionsArea = {
                     <tbody id="1col">
                         <tr>
                             <td id="col2"><input type="date" class="form-control" name="Date[]" placeholder="Enter tanggal" required></td>
-                            <td id="col2"><input type="text" class="form-control" name="WIFI[]" placeholder="Enter pengeluaran wifi" required></td>
-                            <td id="col1"><input type="text" class="form-control" name="Electric[]" placeholder="Enter pengeluaran listrik" required></td>
-                            <td id="col3"><input type="text" class="form-control" name="Maintanance[]" placeholder="Enter pengeluaran pemeliharaan" required></td>
+                            <td id="col2"><input type="text" class="form-control" name="WIFI[]" placeholder="Rp." required></td>
+                            <td id="col1"><input type="text" class="form-control" name="Electric[]" placeholder="Rp." required></td>
+                            <td id="col3"><input type="text" class="form-control" name="Maintanance[]" placeholder="Rp." required></td>
                             <td><button type="button" class="btn btn-sm btn-success addRowMain">Add</button></td>
                         </tr>
                     </tbody>
