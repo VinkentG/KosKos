@@ -992,7 +992,13 @@ var optionsArea = {
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="text" class="form-control" name="NamaPegawai[]" placeholder="Enter nama pegawai" required></td>
+                            <td><input type="text" class="form-control" name="NamaPegawai[]" placeholder="Enter nama pegawai" @error('NamaPegawai[]') is-invalid @enderror value="{{ old('NamaPegawai[]') }}" required>
+                                @error('NamaPegawai[]')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            </td>
                             {{-- <td><input type="text" class="form-control" name="Peran[]" placeholder="Enter peran" required></td> --}}
                             <td>
                             <select class="form-control" name="Peran[]" required>
@@ -1001,8 +1007,20 @@ var optionsArea = {
                                 <option value="Cleaning Service">Cleaning Service</option>
                             </select>
                             </td>
-                            <td><input type="text" class="form-control" name="Gaji[]" placeholder="Enter gaji" required></td>
-                            <td><input type="text" class="form-control" name="Alamat[]" placeholder="Enter alamat" required></td>
+                            <td><input type="number" class="form-control" name="Gaji[]" placeholder="Enter gaji" @error('Gaji[]') is-invalid @enderror value="{{ old('Gaji[]') }}" required >
+                            @error('Gaji[]')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            </td>
+                            <td><input type="text" class="form-control" name="Alamat[]" placeholder="Enter alamat" @error('Alamat[]') is-invalid @enderror value="{{ old('Alamat[]') }}" required>
+                                @error('Alamat[]')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            </td>
                                 <td><button type="button" class="btn btn-sm btn-success addRow">Add</button></td>
                             </td>
                         </tr>

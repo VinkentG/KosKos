@@ -173,8 +173,22 @@
                     </thead>
                     <tbody id="1col">
                     <tr>
-                        <td><input id="col0" type="text" name="NamaBangunan" placeholder="Masukan nama branch" class="form-control name_list" /></td>
-                        <td><input id="col1" type="text" name="Alamat" placeholder="Masukan alamat" class="form-control name_list" /></td>
+                        <td><input id="col0" type="text" name="NamaBangunan" placeholder="Masukan nama branch" @error('NamaBangunan') is-invalid @enderror class="form-control name_list"
+                            value="{{ old('NamaBangunan') }}" required/>
+                            {{-- @error('NamaBangunan')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror --}}
+                        </td>
+                        <td><input id="col1" type="text" name="Alamat" placeholder="Masukan alamat" @error('Alamat') is-invalid @enderror  class="form-control name_list"
+                            value="{{ old('Alamat') }}" required/>
+                            {{-- @error('Alamat')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror --}}
+                    </td>
                         {{-- <td><button type="button" name="add" id="add" class="btn btn-success">Add More</button></td> --}}
                     </tr>
                 </tbody>
