@@ -43,9 +43,15 @@
     <a class="btn btn-outline-warning mr-2">
         <span class="btn-text" data-toggle="modal" data-target="#edit">Edit</span>
       </a>
-      <a class="btn btn-outline-warning mr-5">
+      <a class="btn btn-outline-warning mr-2">
         <span class="btn-text" data-toggle="modal" data-target="#add">Add Data</span>
       </a>
+      <a class="btn btn-outline-warning mr-5">
+        <span class="btn-text" data-toggle="modal" data-target="#question"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-lg" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M4.475 5.458c-.284 0-.514-.237-.47-.517C4.28 3.24 5.576 2 7.825 2c2.25 0 3.767 1.36 3.767 3.215 0 1.344-.665 2.288-1.79 2.973-1.1.659-1.414 1.118-1.414 2.01v.03a.5.5 0 0 1-.5.5h-.77a.5.5 0 0 1-.5-.495l-.003-.2c-.043-1.221.477-2.001 1.645-2.712 1.03-.632 1.397-1.135 1.397-2.028 0-.979-.758-1.698-1.926-1.698-1.009 0-1.71.529-1.938 1.402-.066.254-.278.461-.54.461h-.777ZM7.496 14c.622 0 1.095-.474 1.095-1.09 0-.618-.473-1.092-1.095-1.092-.606 0-1.087.474-1.087 1.091S6.89 14 7.496 14Z"/>
+          </svg></span>
+      </a>
+
   </div>
 
   <div class="container1">
@@ -67,6 +73,44 @@
   </div>
 
   <!-- Modal -->
+  <div class="modal fade" id="question" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Step by Step</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+            <div class="container">
+                <p>
+                    1. Add Branch
+                </p>
+                <p>
+                    2. Add Employee
+                </p>
+                <p>
+                    3. Add Room
+                </p>
+                <p>
+                    4. Add Transaction
+                </p>
+                 <p>
+                    5. Add Spending
+                </p>
+              </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   {{-- view --}}
   <div class="modal fade" id="edit" data-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
@@ -149,6 +193,7 @@
       </div>
     </div>
   </div>
+
 
   {{-- 1 --}}
   <div class="modal fade" id="branch" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
