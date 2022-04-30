@@ -11,12 +11,5 @@ class Bangunan extends Model
     protected $primarykey = 'ID_Bangunan';
     protected $fillable = ['ID_Bangunan','ID_Pemilik','Nama','Alamat'];
 
-    // public function brand(){
-    //     return $this->hasOne(' App\Models\Kelompok','brandid','brandid');
-    // }
-
-    // public function kelompok(){
-    //     return $this->hasOne(' App\Models\Kelompok','kelompokid','kelompokid');
-    // }
     use HasFactory;
 }

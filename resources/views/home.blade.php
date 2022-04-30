@@ -1,14 +1,14 @@
 @extends('layouts.app')
 @section('Nav1')
 @guest
-<li class="scroll-to-section"><a class="nav-link" href="#login">Home</a></li>
-<li class="scroll-to-section"><a class="nav-link" href="#about">About Us</a></li>
-<li class="scroll-to-section"><a class="nav-link" href="#contact">Contact</a></li>
+<li class="scroll-to-section"><a class="nav-link" href="/home">Home</a></li>
+<li class="scroll-to-section"><a class="nav-link" href="/about">About Us</a></li>
+<li class="scroll-to-section"><a class="nav-link" href="/contact">Contact</a></li>
 @else
-<li class="scroll-to-section"><a class="nav-link" href="#home">Home</a></li>
+<li class="scroll-to-section"><a class="nav-link" href="/home">Home</a></li>
 <li class="scroll-to-section"><a class="nav-link" href="/visual/{{ Auth::user()->ID_Pemilik }}">Visualization</a></li>
-<li class="scroll-to-section"><a class="nav-link" href="#about">About Us</a></li>
-<li class="scroll-to-section"><a class="nav-link" href="#contact">Contact</a></li>
+<li class="scroll-to-section"><a class="nav-link" href="/about">About Us</a></li>
+<li class="scroll-to-section"><a class="nav-link" href="/contact">Contact</a></li>
 @endguest
 @endsection
 

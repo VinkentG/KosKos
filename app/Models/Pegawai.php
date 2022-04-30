@@ -11,12 +11,5 @@ class Pegawai extends Model
     protected $primarykey = 'ID_Pegawai';
     protected $fillable = ['ID_Pegawai','ID_Bangunan','NamaPegawai','Alamat','Peran','Gaji'];
 
-    // public function brand(){
-    //     return $this->hasOne(' App\Models\Kelompok','brandid','brandid');
-    // }
-
-    // public function kelompok(){
-    //     return $this->hasOne(' App\Models\Kelompok','kelompokid','kelompokid');
-    // }
     use HasFactory;
 }

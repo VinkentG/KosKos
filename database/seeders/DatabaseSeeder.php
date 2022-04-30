@@ -15,23 +15,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         \DB::table('users')->insert([
-            // [
-            // 'ID_Pemilik' => ("1"),
-            // 'name' => ("B0001"),
-            // 'TempatTanggalLahir' => ("Kos Matahari"),
-            // 'email' => ("b@gidd.com"),
-            // 'password' => ("abcd"),
-            // ],
             [
-            'ID_Pemilik' => ("2"),
-            'name' => ("Mia"),
+            'ID_Pemilik' => ("1"),
+            'name' => ("User"),
             'TempatTanggalLahir' => ("2021-02-01"),
-            'email' => ("bw@gidd.com"),
-            'password' => ("abcd"),
-            'Alamat'=> ("cdc"),
+            'email' => ("aa@gmail.com"),
+            'password' => bcrypt("abcd"),
+            'Alamat'=> ("Jl Ahmad Yani"),
             ],
             [
-            'ID_Pemilik' => ("3"),
+            'ID_Pemilik' => ("2"),
             'name' => ("Ben"),
             'TempatTanggalLahir' => ("2021-02-01"),
             'email' => ("aw@gidd.com"),
@@ -39,7 +32,7 @@ class DatabaseSeeder extends Seeder
             'Alamat'=> ("cdc"),
             ],
             [
-            'ID_Pemilik' => ("4"),
+            'ID_Pemilik' => ("3"),
             'name' => ("Bs"),
             'TempatTanggalLahir' => ("2021-02-01"),
             'email' => ("jw@gidd.com"),

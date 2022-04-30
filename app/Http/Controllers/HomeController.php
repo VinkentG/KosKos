@@ -43,154 +43,94 @@ class HomeController extends Controller
     public function Vis($id)
     {
         $Bangunan = DB::table('_bangunan')->where('_bangunan.ID_Pemilik', $id)->get();
-        // $Bangunan1 = DB::table('_bangunan')->join('_transaksi', '_transaksi.ID_Bangunan', '=', '_bangunan.ID_Bangunan')->join('_fasilitas', '_bangunan.ID_Bangunan', '=', '_fasilitas.ID_Bangunan')->where('_bangunan.ID_Pemilik', $id)
-        // ->select(DB::raw('SUM(Nominal) as totalamount, (_transaksi.ID_Bangunan) as month'))
-        // ->groupBy(DB::raw('MONTH(_transaksi.ID_Bangunan) ASC'))->get();
-        // $nominal = [];
-        // foreach($Bangunan1 as $b){
-        //     $nominal[] = $b->totalamount;
-        // }
-        // dd($nominal);
 
         $datenow = Carbon::now();
-        $Month = $datenow->format('F');
         $Year = $datenow->format('Y');
 
 
         return view('visual')->with('bangunan', $Bangunan)->with('tahunini', $Year);
     }
 
-    public function update($id, $idb)
-    {
-        $penghasilan = DB::table('_penghasilan')->join('_bangunan', '_penghasilan.ID_Bangunan', '=', '_bangunan.ID_Bangunan')->where('_bangunan.ID_Pemilik', $id)->get();
-        // $penghasilan2 = substr($penghasilan,strpos($penghasilan," "),5);
-        // $penghasilan1 = DB::table('_penghasilan')->where($penghasilan2,'=','2021')->get();
-        $Laba = [];
-        $Bulan = [];
-        $Tahun = [];
+    // public function update($id, $idb)
+    // {
+    //     $penghasilan = DB::table('_penghasilan')->join('_bangunan', '_penghasilan.ID_Bangunan', '=', '_bangunan.ID_Bangunan')->where('_bangunan.ID_Pemilik', $id)->get();
 
-        foreach ($penghasilan as $lb) {
-            $Laba[] = $lb->LabaBersih;
-            $Bulan[] = substr($lb->Tanggal,0,strpos($lb->Tanggal," "));
-            $Tahun[] = substr($lb->Tanggal,strpos($lb->Tanggal," "),5);
-        }
+    //     $Laba = [];
+    //     $Bulan = [];
+    //     $Tahun = [];
 
-        return view('example')->with('Laba', $Laba)->with('Bulan', $Bulan)->with('Tahun', $Tahun);
-    }
+    //     foreach ($penghasilan as $lb) {
+    //         $Laba[] = $lb->LabaBersih;
+    //         $Bulan[] = substr($lb->Tanggal,0,strpos($lb->Tanggal," "));
+    //         $Tahun[] = substr($lb->Tanggal,strpos($lb->Tanggal," "),5);
+    //     }
+
+    //     return view('example')->with('Laba', $Laba)->with('Bulan', $Bulan)->with('Tahun', $Tahun);
+    // }
 
     public function Examp($id, $idb, $ids)
     {
-        $penghasilan = DB::table('_penghasilan')->join('_bangunan', '_penghasilan.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
-        ->whereYear('Tanggal', '=', $ids)
-        ->where('_bangunan.ID_Pemilik', $id)
-        ->where('_bangunan.ID_Bangunan', $idb)->get();
-        $penghasilan1 = DB::table('_penghasilan')->join('_bangunan', '_penghasilan.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
-        ->where('_bangunan.ID_Pemilik', $id)
-        ->where('_bangunan.ID_Bangunan', $idb)->get();
 
+        ///////////////////////////////////////////////////////////
         $fasilitas = DB::table('_fasilitas')->join('_bangunan', '_fasilitas.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
         ->whereYear('Tanggal', '=', $ids)
         ->where('_bangunan.ID_Pemilik', $id)
         ->where('_bangunan.ID_Bangunan', $idb)->get();
 
-        $pegawai = DB::table('_pegawai')->join('_bangunan', '_pegawai.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
-        ->where('_bangunan.ID_Pemilik', $id)
-        ->where('_bangunan.ID_Bangunan', $idb)->get();
-
-        $pelanggan = DB::table('_pelanggan')->join('_kamar', '_kamar.ID_Kamar', '=', '_pelanggan.ID_Kamar')->join('_bangunan', '_kamar.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
-        // ->join('_transaksi','_transaksi.ID_Pelanggan','=','_pelanggan.ID_Pelanggan')
-        ->where('_bangunan.ID_Pemilik', $id)
-        ->where('_bangunan.ID_Bangunan', $idb)->get();
-        // ->whereYear('_transaksi.Tanggal', $ids)->get();
-
-        // $pelanggan = DB::table('_pelanggan')
-        // ->join('_transaksi','_transaksi.ID_Pelanggan','=','_pelanggan.ID_Pelanggan')
-        // ->join('_bangunan', '_transaksi.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
-        // ->join('_kamar', '_kamar.ID_Kamar', '=', '_transaksi.ID_Kamar')
-        // ->where('_bangunan.ID_Pemilik', $id)
-        // ->where('_bangunan.ID_Bangunan', $idb)->get();
-        // // ->whereYear('_transaksi.Tanggal', $ids)->get();
+         $WIFI = [];
+         $Listrik = [];
+         $Pemeliharaan = [];
+         $Pengeluaran = 0;
+         $Bulan = [];
+         $Tahun = [];
+         $total = number_format($Pengeluaran,2,',','.');
+        foreach ($fasilitas as $lb) {
+            $WIFI[] = $lb->WIFI;
+            $Listrik[] = $lb->Listrik;
+            $Pengeluaran += $lb->Pengeluaran;
+            $Pemeliharaan[] = $lb->Pemeliharaan;
+        }
+        $format =  number_format($Pengeluaran);
+        // dd($Pengeluaran);
+        foreach ($fasilitas as $lb) {
+            $Bulan[] = Carbon::createFromFormat('Y-m-d', $lb->Tanggal)->format('F');
+            $Tahun[] = Carbon::createFromFormat('Y-m-d', $lb->Tanggal)->format('Y');
+        }
+        ///////////////////////////////////////////////////////////
 
         $kamar = DB::table('_kamar')->join('_bangunan', '_kamar.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
         ->where('_bangunan.ID_Pemilik', $id)
         ->where('_bangunan.ID_Bangunan', $idb)->get();
+
+        ///////////////////////////////////////////////////////////
         $transaksi = DB::table('_transaksi')->join('_bangunan', '_transaksi.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
         // ->join('_pelanggan', '_transaksi.ID_Pelanggan', '=', '_pelanggan.ID_Pelanggan')
         ->where('_bangunan.ID_Pemilik', $id)
         ->where('_bangunan.ID_Bangunan', $idb)//year
         ->whereYear('Tanggal', $ids)->get();
+
+        $transaksiperbulan = [];
+        foreach($transaksi as $tr){
+            $transaksiperbulan[] = Carbon::createFromFormat('Y-m-d', $tr->Tanggal)->format('F');
+        }
+        $tram = array_count_values($transaksiperbulan);
+        $countbulan = array_values($tram);
+        $bulanTransaksi = array_keys($tram);
+
+        ///////////////////////////////////////////////////////////
         $transaksilist = DB::table('_transaksi')->join('_kamar', '_transaksi.ID_Kamar', '=', '_kamar.ID_Kamar')->join('_bangunan', '_transaksi.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
         ->join('_pelanggan', '_transaksi.ID_Pelanggan', '=', '_pelanggan.ID_Pelanggan')
         ->where('_bangunan.ID_Pemilik', $id)
         ->where('_bangunan.ID_Bangunan', $idb)//year
-        ->whereYear('Tanggal', $ids)->paginate(20);
+        ->whereYear('Tanggal', $ids)->get();//->paginate(20);
+
+        ///////////////////////////////////////////////////////////
         $transaksi1 = DB::table('_transaksi')->join('_kamar', '_transaksi.ID_Kamar', '=', '_kamar.ID_Kamar')->join('_bangunan', '_transaksi.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
         ->join('_pelanggan', '_transaksi.ID_Pelanggan', '=', '_pelanggan.ID_Pelanggan')
         ->where('_bangunan.ID_Pemilik', $id)
         ->where('_bangunan.ID_Bangunan', $idb)//year
         ->whereYear('Tanggal', $ids)->get();
-        $transaksi2 = DB::table('_transaksi')->join('_kamar', '_transaksi.ID_Kamar', '=', '_kamar.ID_Kamar')->join('_bangunan', '_transaksi.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
-        ->join('_pelanggan', '_transaksi.ID_Pelanggan', '=', '_pelanggan.ID_Pelanggan')
-        ->where('_bangunan.ID_Pemilik', $id)
-        ->where('_bangunan.ID_Bangunan', $idb)//year
-        ->whereYear('Tanggal', $ids)->value('LamaSewa');
 
-        // $next = [];
-        // foreach($transaksi as $tr){
-        //     $next[] = $tr->LamaSewa;
-        // }
-        // $nextmonth = [];
-        // foreach($transaksi as $tr){
-        //     $nextmonth[] = $tr->Tanggal->addMonths($transaksi1->LamaSewa);
-        //     // $nextmonth[] = $tr->Tanggal->subMonths($array);
-        // }
-        //         dd($nextmonth);
-
-        $nominal = DB::table('_transaksi')->join('_bangunan', '_transaksi.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
-        // ->join('_pelanggan', '_transaksi.ID_Pelanggan', '=', '_pelanggan.ID_Pelanggan')
-        ->where('_bangunan.ID_Pemilik', $id)
-        ->where('_bangunan.ID_Bangunan', $idb)
-         ->whereYear('Tanggal', $ids)->get();
-         $nominal1 = DB::table('_transaksi')->join('_bangunan', '_transaksi.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
-         // ->join('_pelanggan', '_transaksi.ID_Pelanggan', '=', '_pelanggan.ID_Pelanggan')
-         ->where('_bangunan.ID_Pemilik', $id)
-         ->where('_bangunan.ID_Bangunan', $idb)
-          ->whereYear('Tanggal', $ids)
-          ->select(DB::raw('SUM(Nominal) as totalamount, MONTH(Tanggal) as month'))
-          ->groupBy(DB::raw('MONTH(Tanggal) ASC'))->get();
-          $nominal2 = DB::table('_transaksi')->join('_bangunan', '_transaksi.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
-          // ->join('_pelanggan', '_transaksi.ID_Pelanggan', '=', '_pelanggan.ID_Pelanggan')
-          ->where('_bangunan.ID_Pemilik', $id)
-          ->where('_bangunan.ID_Bangunan', $idb)
-           ->get();
-
-        $Bangunan = DB::table('_bangunan')->where('_bangunan.ID_Pemilik', $id)->get();
-
-        $datenow = Carbon::now();
-        $Month = $datenow->format('F');
-        $Year = $datenow->format('Y');
-        //Laba
-        $Laba = [];
-        $TotalLaba = 0;
-        $Bulan = [];
-        $Tahun = [];
-        $Tahun1= [];
-        //Fasilitas
-        $WIFI = [];
-        $Listrik = [];
-        $Pemeliharaan = [];
-        $Pengeluaran = 0;
-        //Pegawai
-        $Gaji = 0;
-        //Kamar
-        $TipeKamar = 0;
-        $JumlahKamar = 0;
-        $BiayaKamar = 0;
-        $a = [];
-        foreach($kamar as $c){
-        $a[] = $c->ID_Kamar;
-        }
-        //pelanggan
         $filter = [];
         foreach($transaksi1 as $bb){
             $filter[] = $bb->TipeKamar;
@@ -199,102 +139,82 @@ class HomeController extends Controller
         $array_values = array_values($vals);
         $array_keys = array_keys($vals);
 
-        //transaksi
-        $transaksiperbulan = [];
-        foreach($transaksi as $tr){
-            $transaksiperbulan[] = Carbon::createFromFormat('Y-m-d', $tr->Tanggal)->format('F');
-        }
-        $tram = array_count_values($transaksiperbulan);
-        $countbulan = array_values($tram);
-        $bulanTransaksi = array_keys($tram);
-        $r=$transaksi->count();
-        $tahunini = $ids;
-        // dd($bulanTransaksi);
+        ///////////////////////////////////////////////////////////
+        $nominal = DB::table('_transaksi')->join('_bangunan', '_transaksi.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
+        ->where('_bangunan.ID_Pemilik', $id)
+        ->where('_bangunan.ID_Bangunan', $idb)
+         ->whereYear('Tanggal', $ids)->get();
+         $pegawai = DB::table('_pegawai')->join('_bangunan', '_pegawai.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
+         ->where('_bangunan.ID_Pemilik', $id)
+         ->where('_bangunan.ID_Bangunan', $idb)->get();
 
-        foreach ($fasilitas as $lb) {
-            $WIFI[] = $lb->WIFI;
-            $Listrik[] = $lb->Listrik;
-            $Pengeluaran += $lb->Pengeluaran;
-            $Pemeliharaan[] = $lb->Pemeliharaan;
-        }
-
-        // foreach ($penghasilan as $lb) {
-        //     $Laba[] = $lb->LabaBersih;
-        //     $TotalLaba += $lb->LabaBersih;
-        //      // $Bulan[] = substr($lb->Tanggal,0,strpos($lb->Tanggal," "));
-        //     // $Tahun[] = substr($lb->Tanggal,strpos($lb->Tanggal," "),5);
-        //     $Bulan[] = Carbon::createFromFormat('Y-m-d', $lb->Tanggal)->format('F');
-        //     $Tahun[] = Carbon::createFromFormat('Y-m-d', $lb->Tanggal)->format('Y');
-        // }
-        // dd($Laba);
-        // foreach ($penghasilan1 as $lb) {
-        //     $Tahun1[] = Carbon::createFromFormat('Y-m-d', $lb->Tanggal)->format('Y');
-        // }
-
-        $Tahun2 = [];
-        foreach ($nominal2 as $lb) {
-                $Tahun2[] = Carbon::createFromFormat('Y-m-d', $lb->Tanggal)->format('Y');
-            }
-            $ab =  array_count_values($Tahun2);
-            $ab1 =  array_keys($ab);
-
-
-        foreach ($fasilitas as $lb) {
-        // foreach ($nominal as $lb) {
-             // $Bulan[] = substr($lb->Tanggal,0,strpos($lb->Tanggal," "));
-            // $Tahun[] = substr($lb->Tanggal,strpos($lb->Tanggal," "),5);
-            $Bulan[] = Carbon::createFromFormat('Y-m-d', $lb->Tanggal)->format('F');
-            $Tahun[] = Carbon::createFromFormat('Y-m-d', $lb->Tanggal)->format('Y');
-        }
-        foreach ($penghasilan1 as $lb) {
-            $Tahun1[] = Carbon::createFromFormat('Y-m-d', $lb->Tanggal)->format('Y');
-        }
-
-        foreach ($pegawai as $lb) {
+         $Gaji = 0;
+         $Hitung = 0;
+         $tangal = [];
+         foreach($nominal as $a){
+            $Hitung += $a->Nominal;
+            $tangal[] =  Carbon::createFromFormat('Y-m-d', $a->Tanggal)->format('F');
+         }
+         foreach ($pegawai as $lb) {
             $Gaji += $lb->Gaji;
         }
-
-        $Hitung = 0;
-        $tangal = [];
-        foreach($nominal as $a){
-           $Hitung += $a->Nominal;
-           $tangal[] =  Carbon::createFromFormat('Y-m-d', $a->Tanggal)->format('F');;
-        }
-        $countbulan1 = count($Bulan);
-        $hitunggajiperbulan =  $countbulan1*$Gaji;
-        $LabaBersih = $Hitung-$Pengeluaran-$hitunggajiperbulan;
-        $labaperbulan = [];
-        foreach($nominal1 as $a){
-         $labaperbulan[] = (int)$a->totalamount;
-        }
-        // dd($labaperbulan);
-
-        $New = array_count_values($tangal);
-        $BulanLaba = array_keys($New);
-        // dd($labaperbulan);
-
-        $total = number_format($Pengeluaran,2,',','.');
-        // $totallababersih = number_format($TotalLaba,2,',','.');
-        $totallababersih = number_format($LabaBersih,2,',','.');
         $totalGaji = number_format($Gaji,2,',','.');
-        // $LABA = number_format($labaperbulan,2,',','.');
-        $coba = array_count_values($Tahun1);
+         $countbulan1 = count($Bulan);
+         $hitunggajiperbulan =  $countbulan1*$Gaji;
+         $LabaBersih = $Hitung-$Pengeluaran-$hitunggajiperbulan;
+         $totallababersih = number_format($LabaBersih,2,',','.');
+         $New = array_count_values($tangal);
+         $BulanLaba = array_keys($New);
+
+         ///////////////////////////////////////////////////////////
+         $nominal1 = DB::table('_transaksi')->join('_bangunan', '_transaksi.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
+         ->where('_bangunan.ID_Pemilik', $id)
+         ->where('_bangunan.ID_Bangunan', $idb)
+          ->whereYear('Tanggal', $ids)
+          ->select(DB::raw('SUM(Nominal) as totalamount, MONTH(Tanggal) as month'))
+          ->groupBy(DB::raw('MONTH(Tanggal) ASC'))->get();
+
+          $labaperbulan = [];
+          foreach($nominal1 as $a){
+            $labaperbulan[] = (int)$a->totalamount;
+           }
+
+          ///////////////////////////////////////////////////////////
+          $nominal2 = DB::table('_transaksi')->join('_bangunan', '_transaksi.ID_Bangunan', '=', '_bangunan.ID_Bangunan')
+          // ->join('_pelanggan', '_transaksi.ID_Pelanggan', '=', '_pelanggan.ID_Pelanggan')
+          ->where('_bangunan.ID_Pemilik', $id)
+          ->where('_bangunan.ID_Bangunan', $idb)
+           ->get();
+
+           $Tahun2 = [];
+           foreach ($nominal2 as $lb) {
+                   $Tahun2[] = Carbon::createFromFormat('Y-m-d', $lb->Tanggal)->format('Y');
+               }
+               $ab =  array_count_values($Tahun2);
+               $ab1 =  array_keys($ab);
+
+           ///////////////////////////////////////////////////////////
+
+           $Bangunan = DB::table('_bangunan')->where('_bangunan.ID_Pemilik', $id)->get();
+
+           ///////////////////////////////////////////////////////////
+
+        $datenow = Carbon::now();
+        $Month = $datenow->format('F');
+        $Year = $datenow->format('Y');
+
+        $r=$transaksi->count();
+        $tahunini = $ids;
         $av = $idb;
         $ta = $ids;
-        $ak = array_keys($coba);
 
-
-        // $LabaKotor = 0;
-        // foreach($transaksi as $tr){
-        //     $LabaKotor += ;
-        // }
-        // $Lababershih = $LabaKotor-$totalGaji;
-
-        return view('example')->with('Laba', $labaperbulan)->with('Bulan', $Bulan)->with('BulanLaba', $BulanLaba)->with('Tahun', $Tahun)->with('WIFI', $WIFI)->with('Listrik', $Listrik)->with('Pengeluaran', $Pengeluaran)->with('Pemeliharaan', $Pemeliharaan)
-        ->with('Pengeluaran', $total)->with('TotalLaba', $totallababersih)->with('totalGaji', $totalGaji)->with('pegawai', $pegawai)
-        ->with('value', $array_values)->with('key', $array_keys)->with('year', $Year)->with('bulanTransaksi', $bulanTransaksi)->with('countbulan', $countbulan)
-        ->with('r', $r)->with('tahunini', $tahunini)->with('av', $av)->with('Tahundrop', $ak)->with('Bangunan', $Bangunan)->with('ta', $ta)->with('kamar', $kamar)
-        ->with('transaksi', $transaksi1) ->with('transaksi1', $transaksilist)->with('faslitas', $fasilitas)->with('ab1', $ab1);
+        return view('example')->with('Laba', $labaperbulan)->with('BulanLaba', $BulanLaba)->with('TotalLaba', $totallababersih)->with('Bulan', $Bulan)
+        ->with('Tahun', $Tahun)->with('WIFI', $WIFI)->with('Listrik', $Listrik)->with('Pengeluaran1', $format)->with('Pemeliharaan', $Pemeliharaan)->with('Pengeluaran', $total)
+        ->with('totalGaji', $totalGaji)->with('pegawai', $pegawai)
+        ->with('value', $array_values)->with('key', $array_keys)
+        ->with('year', $Year)->with('bulanTransaksi', $bulanTransaksi)->with('countbulan', $countbulan)->with('r', $r)->with('ta', $ta)
+        ->with('Bangunan', $Bangunan)->with('kamar', $kamar)->with('tahunini', $tahunini)->with('av', $av)
+        ->with('transaksi', $transaksi1)->with('faslitas', $fasilitas)->with('ab1', $ab1)->with('transaksi1', $transaksilist);
     }
 
     public function addBangunan(Request $request)
@@ -358,15 +278,16 @@ class HomeController extends Controller
             } else {
                 $id =  $a.str_pad($cc+1, 4, '0', STR_PAD_LEFT);
             }
+            $remove = str_replace(",", "", $request->Gaji[$item]);
+
             $Pegawai::insert([
                 'ID_Pegawai'=>$id,
                 'ID_Bangunan'=>$request->Gedung[$item],
                 'NamaPegawai'=>$request->NamaPegawai[$item],
                 'Alamat'=>$request->Alamat[$item],
                 'Peran'=>$request->Peran[$item],
-                'Gaji'=>$request->Gaji[$item],
+                'Gaji'=>$remove,
             ]);
-            // dd($data2);
       }
         }
 
@@ -377,7 +298,6 @@ class HomeController extends Controller
             $Pegawai = new Pegawai;
 
             $data=$request->all();
-            // dd($data);
             if(count($data) > 0)
             {
             foreach($request->NamaPegawai as $item=>$value){
@@ -393,13 +313,15 @@ class HomeController extends Controller
                     $Pe =  $a.str_pad($cc+1, 4, '0', STR_PAD_LEFT);
                 }
                 $v = $id;
+                $remove = str_replace(",", "", $request->Gaji[$item]);
+
                 $Pegawai::insert([
                     'ID_Pegawai'=>$Pe,
                     'ID_Bangunan'=>$v,
                     'NamaPegawai'=>$request->NamaPegawai[$item],
                     'Alamat'=>$request->Alamat[$item],
                     'Peran'=>$request->Peran[$item],
-                    'Gaji'=>$request->Gaji[$item],
+                    'Gaji'=>$remove,
                 ]);
                 // dd($data2);
           }
@@ -431,9 +353,6 @@ class HomeController extends Controller
                     $v = $id;
                     $pemilik = Auth::user()->ID_Pemilik ;
 
-
-                    // $nominal = DB::table('_transaksi')
-                    // ->join('_kamar', '_transaksi.ID_Kamar', '=', '_kamar.ID_Kamar')->where('_kamar.ID_Kamar', $request->Tipe[$item])->pluck('BiayaKamar');
                     $nominal = DB::table('_kamar')
                     ->where('_kamar.ID_Kamar', $request->Tipe[$item])->value('BiayaKamar');
                     $c = $nominal;
@@ -446,6 +365,10 @@ class HomeController extends Controller
                     }else{
                         $status = 'Lunas';
                     }
+        //             $request->validate([
+        //     'Notelp' => ['numeric'],
+
+        // ]);
 
                     //Transaksi
                     $last1 = DB::table('_transaksi')->orderBy('ID_Transaksi','desc')->pluck('ID_Transaksi')->first();
@@ -480,15 +403,6 @@ class HomeController extends Controller
                         'TanggalKeluar'=>$mont,
                         'Status'=>$status,
                     ]);
-                    // $Penghasilan::insert([
-                    //     'ID_Transaksi'=>$Pa,
-                    //     'ID_Bangunan'=>$v,
-                    //     'ID_Pemilik'=>$pemilik,
-                    //     'ID_Kamar'=>$request->Tipe[$item],
-                    //     'ID_Pelanggan'=>$Pe,
-                    //     'Tanggal'=>$request->Date[$item],
-                    // ]);
-                    // dd($data2);
               }
                 }
 
@@ -517,13 +431,17 @@ class HomeController extends Controller
                 $Pe =  $a.str_pad($cc+1, 4, '0', STR_PAD_LEFT);
             }
             $v = $id;
+            $remove = str_replace(",", "", $request->WIFI[$item]);
+            $remove2 = str_replace(",", "", $request->Electric[$item]);
+            $remove3 = str_replace(",", "", $request->Maintanance[$item]);
+
             $Fasilitas::insert([
                 'ID_Fasilitas'=>$Pe,
                 'ID_Bangunan'=>$v,
-                'WIFI'=>$request->WIFI[$item],
-                'Listrik'=>$request->Electric[$item],
-                'Pemeliharaan'=>$request->Maintanance[$item],
-                'Pengeluaran'=>$request->WIFI[$item]+$request->Electric[$item]+$request->Maintanance[$item],
+                'WIFI'=>$remove,
+                'Listrik'=>$remove2,
+                'Pemeliharaan'=>$remove3,
+                'Pengeluaran'=>$remove+$remove2+$remove3,
                 'Tanggal'=>$request->Date[$item],
             ]);
       }
@@ -590,27 +508,4 @@ class HomeController extends Controller
         DB::table('_kamar')->where('ID_Kamar', $id)->delete();
         return Redirect::back();
     }
-
-
-    // function autonumber($id_terakhir, $panjang_kode, $panjang_angka) {
-
-    //     // mengambil nilai kode ex: KNS0015 hasil KNS
-    //     $kode = substr($id_terakhir, 0, $panjang_kode);
-
-    //     // mengambil nilai angka
-    //     // ex: KNS0015 hasilnya 0015
-    //     $angka = substr($id_terakhir, $panjang_kode, $panjang_angka);
-
-    //     // menambahkan nilai angka dengan 1
-    //     // kemudian memberikan string 0 agar panjang string angka menjadi 4
-    //     // ex: angka baru = 6 maka ditambahkan strig 0 tiga kali
-    //     // sehingga menjadi 0006
-    //     $angka_baru = str_repeat("0", $panjang_angka - strlen($angka+1)).($angka+1);
-
-    //     // menggabungkan kode dengan nilang angka baru
-    //     $id_baru = $kode.$angka_baru;
-
-    //     return $id_baru;
-    // }
-
 }
